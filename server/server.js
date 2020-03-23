@@ -3,6 +3,9 @@ const connectDB = require('./db');
 
 const app = express();
 
+// Init Middleware
+app.use(express.json({ extended: false }));
+
 // Initialize dotenv
 require('dotenv').config();
 
@@ -10,7 +13,7 @@ app.get('/', (req, res) => res.json({ msg: 'Welkom bij de Huiswerk Heroes API' }
 
 // Define Routes
 app.use('/api/auth', require('./routes/auth'));
-app.use('/api/users', require('./routes/users'));
+app.use('/api/user', require('./routes/user'));
 
 const PORT = process.env.PORT || 5000;
 
