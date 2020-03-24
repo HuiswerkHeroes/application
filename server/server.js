@@ -1,10 +1,12 @@
 const express = require('express');
 const connectDB = require('./db');
+const cors = require('cors');
 
 const app = express();
 
-// Init Middleware
+// Init stuff
 app.use(express.json({ extended: false }));
+app.use(cors({ origin: 'http://localhost:8080' }));
 
 // Initialize dotenv
 require('dotenv').config();
