@@ -12,7 +12,7 @@ Vue.config.productionTip = false;
 import '@bybas/latte-ui/src/scss/app.scss';
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app');
