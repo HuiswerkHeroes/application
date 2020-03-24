@@ -18,6 +18,18 @@ const userValidationRules = () => {
     ];
 };
 
+const loginValidationRules = () => {
+    return [
+        body('email')
+            .isEmail()
+            .withMessage('Voer een geldig e-mailadres in'),
+        body('password')
+            .not()
+            .isEmpty()
+            .withMessage('Voer een wachtwoord in')
+    ];
+};
+
 const validate = (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -33,5 +45,6 @@ const validate = (req, res, next) => {
 
 module.exports = {
     userValidationRules,
+    loginValidationRules,
     validate
 };

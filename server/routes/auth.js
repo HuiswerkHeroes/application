@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 // Middleware
 const auth = require('../middleware/auth');
+const { loginValidationRules, validate } = require('../middleware/validator.js');
 
 // Models
 const User = require('../models/User');
@@ -24,8 +27,43 @@ router.get('/', auth, async (req, res) => {
 // @route   POST api/auth
 // @desc    Auth user & get token
 // @access  Public
-router.post('/', (req, res) => {
-    res.send('Auth user & get token');
+router.post('/', loginValidationRules(), validate, async (req, res) => {
+    const { email, password } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            return res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
+        }
+
+        const payload = {
+            user: {
+                id: user.id
+            }
+        };
+
+        jwt.sign(
+            payload,
+            process.env.jwtSecret,
+            {
+                expiresIn: 3600
+            },
+            (err, token) => {
+                if (err) throw err;
+                res.json({ token });
+            }
+        );
+    } catch (err) {
+        console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: POST - api/auth] \x1b[31m${err.message}\x1b[0m`);
+        res.status(500).json({ msg: 'Something went wrong on our side.' });
+    }
 });
 
 module.exports = router;
