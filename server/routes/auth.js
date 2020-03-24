@@ -53,7 +53,7 @@ router.post('/', loginValidationRules(), validate, async (req, res) => {
             payload,
             process.env.jwtSecret,
             {
-                expiresIn: 3600
+                expiresIn: 86400
             },
             (err, token) => {
                 if (err) throw err;
