@@ -49,7 +49,7 @@ router.post('/', userValidationRules(), validate, async (req, res) => {
         );
     } catch (err) {
         console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: POST - api/user] \x1b[31m${err.message}\x1b[0m`);
-        res.status(500).json({ msg: 'Something went wrong on our side.' });
+        return res.status(500).json({ msg: 'Something went wrong on our side.' });
     }
 });
 

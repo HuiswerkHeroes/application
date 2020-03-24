@@ -17,10 +17,10 @@ router.get('/', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
 
-        res.json(user);
+        return res.json(user);
     } catch (err) {
         console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: GET - api/auth] \x1b[31m${err.message}\x1b[0m`);
-        res.status(500).json({ msg: 'Something went wrong on our side.' });
+        return res.status(500).json({ msg: 'Something went wrong on our side.' });
     }
 });
 
@@ -34,7 +34,7 @@ router.post('/', loginValidationRules(), validate, async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
+            return res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
         }
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -62,7 +62,7 @@ router.post('/', loginValidationRules(), validate, async (req, res) => {
         );
     } catch (err) {
         console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: POST - api/auth] \x1b[31m${err.message}\x1b[0m`);
-        res.status(500).json({ msg: 'Something went wrong on our side.' });
+        return res.status(500).json({ msg: 'Something went wrong on our side.' });
     }
 });
 
