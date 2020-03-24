@@ -1,28 +1,15 @@
 <template>
     <div>
-        <div id="top-bar" class="app-bar py-1">
-            <div class="container">
-                <div class="app-bar-row app-bar-auto">
-                    <div class="ml-auto">
-                        <button class="btn btn-outline btn-primary"><span>Inloggen</span></button>
-                        <button class="btn btn-outline btn-primary"><span>Registreren</span></button>
-                    </div>
+        <div class="app-bar app-bar-main app-bar-primary">
+            <div class="app-bar-row app-bar-auto py-2">
+                <!-- <button class="btn btn-icon btn-text"></button> -->
+                <div class="app-bar-column">
+                    <span class="app-bar-title">Homework Heroes</span>
                 </div>
-            </div>
-        </div>
-
-        <div class="app-bar app-bar-main py-3">
-            <div class="container">
-                <div class="app-bar-row app-bar-auto py-2">
-                    <button class="btn btn-icon btn-text"></button>
-                    <div class="app-bar-column">
-                        <span class="app-bar-title">Homework Heroes</span>
-                    </div>
-                    <nav class="nav nav-tabs px-5 d-none d-lg-flex">
-                        <router-link class="nav-link" to="/">Home</router-link>
-                        <router-link class="nav-link" to="/about">About</router-link>
-                    </nav>
-                </div>
+                <nav class="nav nav-tabs px-5 d-none d-lg-flex">
+                    <router-link class="nav-link" to="/">Home</router-link>
+                    <router-link class="nav-link" to="/about">About</router-link>
+                </nav>
             </div>
         </div>
     </div>
