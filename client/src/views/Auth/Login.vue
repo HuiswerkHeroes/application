@@ -4,7 +4,7 @@
         <div id="login">
             <div class="container">
                 <div class="row justify-content-center py-4">
-                    <div class="col-md-6">
+                    <div class="col-sm-12 col-md-8 col-lg-6">
                         <div v-if="this.error" class="notice notice-error my-4">{{ this.error }}</div>
 
                         <form v-on:submit="handleSubmit">
