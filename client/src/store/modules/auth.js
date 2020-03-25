@@ -29,7 +29,6 @@ const actions = {
     },
     async tryAuth({ commit }) {
         try {
-            // console.log(localStorage.getItem('token'));
             if (localStorage.getItem('token') === null) {
                 return;
             }
