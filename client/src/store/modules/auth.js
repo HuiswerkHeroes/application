@@ -23,6 +23,7 @@ const actions = {
 
             commit('setLogin', getUser.data);
         } catch (err) {
+            setAuthToken();
             throw err.response;
         }
     },
@@ -38,14 +39,22 @@ const actions = {
             const res = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
             commit('setLogin', res.data);
         } catch (err) {
-            setAuthToken();
+            this.trySignOut();
             throw err.response;
         }
+    },
+    async trySignOut({ commit }) {
+        setAuthToken();
+        commit('setSignOut');
     }
 };
 
 const mutations = {
-    setLogin: (state, user) => (state.user = user)
+    setLogin: (state, user) => {
+        state.user = user;
+        state.user.initials = user.firstName[0] + user.lastName[0];
+    },
+    setSignOut: state => (state.user = {})
 };
 
 export default {

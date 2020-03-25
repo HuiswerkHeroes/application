@@ -1,15 +1,11 @@
 <template>
     <div>
-        <div class="app-bar app-bar-main app-bar-primary">
+        <div class="app-bar app-bar-main app-bar-dark py-2">
             <div class="app-bar-row app-bar-auto py-2">
                 <!-- <button class="btn btn-icon btn-text"></button> -->
                 <div class="app-bar-column">
                     <span class="app-bar-title">Homework Heroes</span>
                 </div>
-                <nav class="nav nav-tabs px-5 d-none d-lg-flex">
-                    <router-link class="nav-link" to="/">Home</router-link>
-                    <router-link class="nav-link" to="/about">About</router-link>
-                </nav>
             </div>
         </div>
     </div>
