@@ -5,7 +5,9 @@ const state = {
     user: {}
 };
 
-const getters = {};
+const getters = {
+    getUser: state => state.user
+};
 
 const actions = {
     async tryLogin({ commit }, data) {
@@ -23,6 +25,22 @@ const actions = {
         } catch (err) {
             throw err.response;
         }
+    },
+    async tryAuth({ commit }) {
+        try {
+            // console.log(localStorage.getItem('token'));
+            if (localStorage.getItem('token') === null) {
+                return;
+            }
+
+            setAuthToken(localStorage.getItem('token'));
+
+            const res = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
+            commit('setLogin', res.data);
+        } catch (err) {
+            setAuthToken();
+            throw err.response;
+        }
     }
 };
 
@@ -31,6 +49,7 @@ const mutations = {
 };
 
 export default {
+    namespaced: true,
     state,
     getters,
     actions,

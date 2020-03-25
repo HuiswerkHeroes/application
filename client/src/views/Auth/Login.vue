@@ -60,7 +60,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(['tryLogin']),
+        ...mapActions('auth', { tryLogin: 'tryLogin' }),
         async handleSubmit(e) {
             e.preventDefault();
 
