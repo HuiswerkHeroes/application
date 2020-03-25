@@ -23,7 +23,28 @@ const actions = {
 
             commit('setLogin', getUser.data);
         } catch (err) {
-            setAuthToken();
+            this.trySignOut();
+            throw err.response;
+        }
+    },
+    async tryRegister({ commit }, data) {
+        const { firstName, lastName, email, password } = data;
+
+        try {
+            const res = await axios.post(process.env.VUE_APP_APIURL + '/api/user', {
+                firstName,
+                lastName,
+                email,
+                password
+            });
+
+            setAuthToken(res.data.token);
+
+            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
+
+            commit('setLogin', getUser.data);
+        } catch (err) {
+            this.trySignOut();
             throw err.response;
         }
     },
