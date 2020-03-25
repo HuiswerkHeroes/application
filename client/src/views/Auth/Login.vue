@@ -14,6 +14,7 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
+                                        <small>E-mailadres</small>
                                         <input
                                             type="email"
                                             class="form-control"
@@ -24,13 +25,22 @@
                                         />
                                     </div>
                                     <div class="form-group">
-                                        <latte-password placeholder="Voer hier je wachtwoord in" v-model="password"></latte-password>
+                                        <small>Wachtwoord</small>
+                                        <latte-password placeholder="Voer je wachtwoord in" v-model="password"></latte-password>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
-                                    <button class="btn btn-contained btn-primary ml-auto " type="submit">
-                                        <span v-if="this.loading" class="spinner"></span><span>Inloggen</span>
-                                    </button>
+                                    <div>
+                                        <router-link class="btn btn-text btn-primary btn-sm ml-auto" :to="{ name: 'Register' }">
+                                            Nog niet geregistreerd?
+                                        </router-link>
+                                        <a href="" class="btn btn-text btn-primary btn-sm ml-auto">Wachtwoord vergeten?</a>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <button class="btn btn-contained btn-primary" type="submit">
+                                            <span v-if="this.loading" class="spinner"></span><span>Inloggen</span>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </form>
