@@ -31,14 +31,15 @@
                                 </div>
                                 <div class="panel-footer">
                                     <div>
-                                        <router-link class="btn btn-text btn-primary btn-sm ml-auto" :to="{ name: 'Register' }">
-                                            Nog niet geregistreerd?
-                                        </router-link>
-                                        <a href="" class="btn btn-text btn-primary btn-sm ml-auto">Wachtwoord vergeten?</a>
+                                        <router-link class="btn btn-text btn-primary btn-sm ml-auto" :to="{ name: 'Register' }"
+                                            >Nog niet geregistreerd?</router-link
+                                        >
+                                        <a href class="btn btn-text btn-primary btn-sm ml-auto">Wachtwoord vergeten?</a>
                                     </div>
                                     <div class="ml-auto">
                                         <button class="btn btn-contained btn-primary" type="submit">
-                                            <span v-if="this.loading" class="spinner"></span><span>Inloggen</span>
+                                            <span v-if="this.loading" class="spinner"></span>
+                                            <span>Inloggen</span>
                                         </button>
                                     </div>
                                 </div>
@@ -91,18 +92,24 @@ export default {
                     this.email = '';
                     this.password = '';
 
-                    if (err.status === 400) {
+                    if (!err.response) {
+                        Latte.ui.notification.create({
+                            title: 'Er is iets fout gegaan!',
+                            message: 'Kan niet verbinden met de server. Probeer het later opnieuw.'
+                        });
+                    } else if (err.response.status === 400) {
                         this.error = err.data.msg;
-                    }
-
-                    if (err.status === 422) {
-                        this.error = 'Niet alle velden zijn correct ingevuld';
-                    }
-
-                    if (err.status === 500) {
+                    } else if (err.response.status === 422) {
+                        this.error = 'Niet alle velden zijn correct ingevuld ';
+                    } else if (err.response.status === 500) {
                         Latte.ui.notification.create({
                             title: 'Er is iets fout gegaan!',
                             message: 'Probeer het later opnieuw.'
+                        });
+                    } else {
+                        Latte.ui.notification.create({
+                            title: 'Er is iets fout gegaan!',
+                            message: 'Kan niet verbinden met de server. Probeer het later opnieuw.'
                         });
                     }
                 });

@@ -10,7 +10,7 @@ const getters = {
 };
 
 const actions = {
-    async tryLogin({ commit }, data) {
+    async tryLogin({ commit, dispatch }, data) {
         try {
             const res = await axios.post(process.env.VUE_APP_APIURL + '/api/auth', {
                 email: data.email,
@@ -23,11 +23,11 @@ const actions = {
 
             commit('setLogin', getUser.data);
         } catch (err) {
-            this.trySignOut();
-            throw err.response;
+            dispatch('trySignOut');
+            throw err;
         }
     },
-    async tryRegister({ commit }, data) {
+    async tryRegister({ commit, dispatch }, data) {
         const { firstName, lastName, email, password } = data;
 
         try {
@@ -44,11 +44,11 @@ const actions = {
 
             commit('setLogin', getUser.data);
         } catch (err) {
-            this.trySignOut();
-            throw err.response;
+            dispatch('trySignOut');
+            throw err;
         }
     },
-    async tryAuth({ commit }) {
+    async tryAuth({ commit, dispatch }) {
         try {
             if (localStorage.getItem('token') === null) {
                 return;
@@ -59,8 +59,8 @@ const actions = {
             const res = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
             commit('setLogin', res.data);
         } catch (err) {
-            this.trySignOut();
-            throw err.response;
+            dispatch('trySignOut');
+            throw err;
         }
     },
     async trySignOut({ commit }) {

@@ -34,18 +34,20 @@
                                     </div>
                                     <div class="form-group">
                                         <small>Wachtwoord</small>
-                                        <latte-password placeholder="••••••••" v-model="password"></latte-password>
+                                        <latte-password placeholder="••••••••" v-model="password" min="6"></latte-password>
+                                        <small>Een wachtwoord moet minimaal 6 karakters bevatten</small>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
                                     <div>
-                                        <router-link class="btn btn-text btn-primary btn-sm ml-auto" :to="{ name: 'Login' }">
-                                            Heeft u al een account?
-                                        </router-link>
+                                        <router-link class="btn btn-text btn-primary btn-sm ml-auto" :to="{ name: 'Login' }"
+                                            >Heeft u al een account?</router-link
+                                        >
                                     </div>
                                     <div class="ml-auto">
                                         <button class="btn btn-contained btn-primary" type="submit">
-                                            <span v-if="this.loading" class="spinner"></span><span>Registreren</span>
+                                            <span v-if="this.loading" class="spinner"></span>
+                                            <span>Registreren</span>
                                         </button>
                                     </div>
                                 </div>
@@ -88,7 +90,12 @@ export default {
             }
 
             this.loading = true;
-            this.tryRegister({ firstName: this.firstName, lastName: this.lastName, email: this.email, password: this.password })
+            this.tryRegister({
+                firstName: this.firstName,
+                lastName: this.lastName,
+                email: this.email,
+                password: this.password
+            })
                 .then(() => {
                     this.loading = false;
                     this.firstName = '';
@@ -101,18 +108,26 @@ export default {
                     this.loading = false;
                     this.password = '';
 
-                    if (err.status === 400) {
+                    if (!err.response) {
+                        Latte.ui.notification.create({
+                            title: 'Er is iets fout gegaan!',
+                            message: 'Kan niet verbinden met de server. Probeer het later opnieuw.'
+                        });
+                    } else if (err.response.status === 400) {
                         this.error = err.data.msg;
-                    }
-
-                    if (err.status === 422) {
+                    } else if (err.response.status === 422) {
                         this.error = 'Niet alle velden zijn correct ingevuld';
-                    }
-
-                    if (err.status === 500) {
+                    } else if (err.response.status === 409) {
+                        this.error = 'Dit e-mailadres is al in gebruik';
+                    } else if (err.response.status === 500) {
                         Latte.ui.notification.create({
                             title: 'Er is iets fout gegaan!',
                             message: 'Probeer het later opnieuw.'
+                        });
+                    } else {
+                        Latte.ui.notification.create({
+                            title: 'Er is iets fout gegaan!',
+                            message: 'Kan niet verbinden met de server. Probeer het later opnieuw.'
                         });
                     }
                 });
