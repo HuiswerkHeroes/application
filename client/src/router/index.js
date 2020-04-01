@@ -7,7 +7,7 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        component: () => import(/* webpackChunkName: "login" */ '../views/auth/Login.vue'),
+        component: () => import(/* webpackMode: "lazy" */ '../views/auth/Login.vue'),
         meta: {
             guest: true
         }
@@ -15,14 +15,14 @@ const routes = [
     {
         path: '/register',
         name: 'Register',
-        component: () => import(/* webpackChunkName: "register" */ '../views/auth/Register.vue'),
+        component: () => import(/* webpackMode: "lazy" */ '../views/auth/Register.vue'),
         meta: {
             guest: true
         }
     },
     {
         path: '/v1',
-        component: () => import(/* webpackChunkName: "skeleton" */ '@/views/v1/Skeleton.vue'),
+        component: () => import(/* webpackMode: "lazy" */ '@/views/v1/Skeleton.vue'),
         meta: {
             requiresAuth: true
         },
@@ -30,13 +30,13 @@ const routes = [
             {
                 path: '',
                 name: 'Dashboard',
-                component: () => import(/* webpackChunkName: "dashboard" */ '@/views/v1/Dashboard.vue')
+                component: () => import(/* webpackMode: "lazy" */ '@/views/v1/Dashboard.vue')
             }
         ]
     },
     {
         path: '*',
-        component: () => import(/* webpackChunkName: "notfound" */ '@/views/NotFound.vue')
+        component: () => import(/* webpackMode: "lazy" */ '@/views/NotFound.vue')
     }
 ];
 
