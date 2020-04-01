@@ -19,7 +19,7 @@ router.post('/', userValidationRules(), validate, async (req, res) => {
         let user = await User.findOne({ email });
 
         if (user) {
-            return res.status(409).json({ msg: 'User already exists' });
+            return res.status(409).json({ msg: 'Er is al een gebruiker geregistreerd met het opgegeven e-mailadres!' });
         }
 
         user = new User({ firstName, lastName, email, password });
