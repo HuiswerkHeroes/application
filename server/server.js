@@ -16,6 +16,7 @@ app.get('/', (req, res) => res.json({ msg: 'Welkom bij de Huiswerk Heroes API' }
 // Define Routes
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/user', require('./routes/user'));
+app.use('/api/school', require('./routes/school'));
 
 const PORT = process.env.PORT || 5000;
 

@@ -30,6 +30,19 @@ const loginValidationRules = () => {
     ];
 };
 
+const schoolValidationRules = () => {
+    return [
+        body('name')
+            .not()
+            .isEmpty()
+            .withMessage('Voer een schoolnaam in'),
+        body('city')
+            .not()
+            .isEmpty()
+            .withMessage('Voer een plaatsnaam in')
+    ];
+};
+
 const validate = (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
@@ -46,5 +59,6 @@ const validate = (req, res, next) => {
 module.exports = {
     userValidationRules,
     loginValidationRules,
+    schoolValidationRules,
     validate
 };
