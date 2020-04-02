@@ -9,7 +9,7 @@ const { userValidationRules, setupTypeValidationRules, setupSchoolValidationRule
 const auth = require('../middleware/auth');
 
 // Models
-const User = require('../models/User');
+const User = require('../models/Gebruiker');
 const School = require('../models/School');
 
 // @route   POST api/user
