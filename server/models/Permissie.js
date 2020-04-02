@@ -4,6 +4,7 @@ const PermissieSchema = mongoose.Schema({
     naam: {
         type: String,
         required: true,
+        lowercase: true,
         unique: true
     },
     actief: {
