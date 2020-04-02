@@ -2,7 +2,8 @@ import axios from 'axios';
 import setAuthToken from '@/utils/setAuthToken';
 
 const state = {
-    user: {}
+    user: {},
+    test: false
 };
 
 const getters = {

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import store from '../store';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,30 @@ const routes = [
         },
         children: [
             {
+                path: 'register/setup/1',
+                name: 'RegisterSetup1',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/register/setup/1.vue'),
+                meta: {
+                    isSetup: true
+                }
+            },
+            {
+                path: 'register/setup/student/2',
+                name: 'RegisterSetupStudent2',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/register/setup/student/2.vue'),
+                meta: {
+                    isSetup: true
+                }
+            },
+            {
+                path: 'register/setup/student/3',
+                name: 'RegisterSetupStudent3',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/register/setup/student/3.vue'),
+                meta: {
+                    isSetup: true
+                }
+            },
+            {
                 path: '',
                 name: 'Dashboard',
                 component: () => import(/* webpackMode: "lazy" */ '@/views/v1/Dashboard.vue')
@@ -48,7 +73,7 @@ const router = new VueRouter({
     routes
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem('token') == null) {
             next({
@@ -56,7 +81,20 @@ router.beforeEach((to, from, next) => {
                 params: { nextUrl: to.fullPath }
             });
         } else {
-            next();
+            let user = store.state.auth.user;
+            if (user.setupComplete === false) {
+                if (!to.matched.some(record => record.meta.isSetup)) {
+                    next({ name: 'RegisterSetup1' });
+                } else {
+                    next();
+                }
+            } else {
+                if (to.matched.some(record => record.meta.isSetup)) {
+                    next({ name: 'Dashboard' });
+                } else {
+                    next();
+                }
+            }
         }
     } else if (to.matched.some(record => record.meta.guest)) {
         if (localStorage.getItem('token') == null) {

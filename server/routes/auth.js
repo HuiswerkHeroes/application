@@ -5,7 +5,8 @@ const jwt = require('jsonwebtoken');
 
 // Middleware
 const auth = require('../middleware/auth');
-const { loginValidationRules, validate } = require('../middleware/validator.js');
+const { validate } = require('../middleware/validate');
+const { loginValidationRules } = require('../middleware/routeMiddleware/authValidator.js');
 
 // Models
 const User = require('../models/User');

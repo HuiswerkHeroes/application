@@ -11,8 +11,10 @@ Vue.config.productionTip = false;
 
 import '@bybas/latte-ui/src/scss/app.scss';
 
-new Vue({
-    router,
-    store,
-    render: h => h(App)
-}).$mount('#app');
+store.dispatch('auth/tryAuth').then(() => {
+    new Vue({
+        router,
+        store,
+        render: h => h(App)
+    }).$mount('#app');
+});

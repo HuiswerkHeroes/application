@@ -1,7 +1,12 @@
 <template>
     <div>
         <Header />
-        <h2>{{ getUser }}</h2>
+        <ul class="mt-5">
+            <li v-bind:key="index" v-for="(item, index) in getUser">
+                <strong> {{ index }}: </strong>
+                {{ item }}
+            </li>
+        </ul>
     </div>
 </template>
 

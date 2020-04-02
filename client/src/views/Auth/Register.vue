@@ -47,7 +47,7 @@
                                     <div class="ml-auto">
                                         <button class="btn btn-contained btn-primary" type="submit">
                                             <span v-if="this.loading" class="spinner"></span>
-                                            <span>Registreren</span>
+                                            <span>Volgende</span>
                                         </button>
                                     </div>
                                 </div>
@@ -102,7 +102,7 @@ export default {
                     this.lastName = '';
                     this.email = '';
                     this.password = '';
-                    this.$router.push({ name: 'Dashboard' });
+                    this.$router.push({ name: 'RegisterSetup1' });
                 })
                 .catch(err => {
                     this.loading = false;
