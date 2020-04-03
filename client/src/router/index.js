@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 
+ * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+ */
+
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';

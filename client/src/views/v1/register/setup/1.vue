@@ -1,3 +1,8 @@
+<!--
+  - Copyright (c) 2020
+  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+  -->
+
 <template>
     <div>
         <div>
@@ -49,10 +54,10 @@
 </template>
 
 <script>
-import axios from 'axios';
-import { Latte } from '@bybas/latte-ui';
+    import axios from 'axios';
+    import {Latte} from '@bybas/latte-ui';
 
-export default {
+    export default {
     name: 'RegisterSetup1',
     components: {},
     data() {

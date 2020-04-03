@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 
+ * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+ */
+
 const mongoose = require('mongoose');
 
 const GebruikerSchema = mongoose.Schema(

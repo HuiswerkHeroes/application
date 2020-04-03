@@ -1,3 +1,8 @@
+<!--
+  - Copyright (c) 2020
+  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+  -->
+
 <template>
   <div>
     <Header />
@@ -54,11 +59,11 @@
 </template>
 
 <script>
-import Header from "@/components/layout/Header";
-import { mapActions } from "vuex";
-import { Latte } from "@bybas/latte-ui";
+  import Header from "@/components/layout/Header";
+  import {mapActions} from "vuex";
+  import {Latte} from "@bybas/latte-ui";
 
-export default {
+  export default {
   name: "Login",
   components: {
     Header

@@ -1,3 +1,8 @@
+<!--
+  - Copyright (c) 2020
+  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+  -->
+
 <template>
     <div>
         <Header />
@@ -11,8 +16,8 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-// import Header from '@/components/layout/Header';
+    import {mapGetters} from 'vuex';
+    // import Header from '@/components/layout/Header';
 
 export default {
     name: 'Dashboard',

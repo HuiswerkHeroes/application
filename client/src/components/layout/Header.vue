@@ -1,3 +1,8 @@
+<!--
+  - Copyright (c) 2020
+  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+  -->
+
 <template>
     <div>
         <div class="app-bar app-bar-main app-bar-dark py-2">

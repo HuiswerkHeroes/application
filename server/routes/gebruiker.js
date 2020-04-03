@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020
+ * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+ */
+
 const express = require('express');
 const router = express.Router();
 
@@ -21,7 +26,7 @@ const Gebruiker = require('../models/Gebruiker');
  */
 
 router.post('/', gebruikerValidationRegels(), validate, async (req, res) => {
-    const { email, voornaam, achternaam } = req.body;
+    const { email, voornaam, achternaam, wachtwoord } = req.body;
 
     try {
         let gebruiker = await Gebruiker.findOne({ email });
@@ -30,7 +35,9 @@ router.post('/', gebruikerValidationRegels(), validate, async (req, res) => {
             return res.status(409).json({ msg: 'Er is al een gebruiker geregistreerd met het opgegeven e-mailadres!' });
         }
 
-        gebruiker = new User({ firstName, lastName, email, hashPassword(password) }).save();
+        const password = await hashPassword(password);
+
+        gebruiker = new Gebruiker({ voornaam, achternaam, email,  }).save();
 
         // Generate a Auth Token
         generateAuthToken(gebruiker.id).then((token) => {
@@ -43,3 +50,5 @@ router.post('/', gebruikerValidationRegels(), validate, async (req, res) => {
         return res.status(500).json({ msg: 'Something went wrong on our side.' });
     }
 });
+
+module.exports = router;

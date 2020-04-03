@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 
+ * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+ */
+
 import axios from 'axios';
 import setAuthToken from '@/utils/setAuthToken';
 

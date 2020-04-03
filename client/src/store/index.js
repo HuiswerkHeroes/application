@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020 
+ * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+ */
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 

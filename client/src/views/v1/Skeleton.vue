@@ -1,3 +1,8 @@
+<!--
+  - Copyright (c) 2020
+  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+  -->
+
 <template>
     <div>
         <header>
@@ -27,9 +32,9 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
-export default {
+    export default {
     name: 'Skeleton',
     data() {
         return {

@@ -1,3 +1,8 @@
+<!--
+  - Copyright (c) 2020
+  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+  -->
+
 <template>
     <div id="app">
         <router-view />
@@ -5,9 +10,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+    import {mapActions} from 'vuex';
 
-export default {
+    export default {
     name: 'App',
     methods: mapActions('auth', { tryAuth: 'tryAuth' }),
     mounted() {
