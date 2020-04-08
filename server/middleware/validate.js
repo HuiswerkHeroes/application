@@ -5,6 +5,11 @@
 
 const { validationResult } = require('express-validator');
 
+
+/**
+ *  @func   validate (exports)
+ *  @desc   Verwerkt de mogelijke validation errors
+ */
 const validate = (req, res, next) => {
     const errors = validationResult(req);
     if (errors.isEmpty()) {
