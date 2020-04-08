@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -9,13 +9,13 @@ const GebruikerTypeSchema = mongoose.Schema({
     naam: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     actief: {
         type: Boolean,
         required: true,
-        default: true
-    }
+        default: true,
+    },
 });
 
-module.exports = mongoose.model('GebruikerType', GebruikerTypeSchema, { collection: 'gebruiker_types' });
+module.exports = mongoose.model('GebruikerType', GebruikerTypeSchema, 'gebruiker_types');

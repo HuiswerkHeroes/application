@@ -1,0 +1,10 @@
+[
+    {
+        "modelNaam": "Rol",
+        "rijen": [{ "naam": "gebruiker", "weergaveNaam": "Gebruiker (Standaard)" }]
+    },
+    {
+        "modelNaam": "GebruikerType",
+        "rijen": [{ "naam": "Student" }, { "naam": "Docent" }]
+    }
+]

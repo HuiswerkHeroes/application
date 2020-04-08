@@ -5,6 +5,7 @@
 
 const express = require('express');
 const connectDB = require('./db');
+const handleStartArguments = require('./utils/handleStartArguments');
 const cors = require('cors');
 
 const app = express();
@@ -25,7 +26,9 @@ app.get('/', (req, res) => res.json({ msg: 'Welkom bij de Huiswerk Heroes API' }
 
 const PORT = process.env.PORT || 5000;
 
-// Connect to database then listen the app
-connectDB().then(() => {
+// Connect to database then handle arguments and then listen the app
+(async () => {
+    await connectDB();
+    await handleStartArguments();
     app.listen(PORT, console.log(`\x1b[47m\x1b[30m[LOG]\x1b[0m \x1b[34m[Server] \x1b[0mStarted on port: ${PORT}`));
-});
+})();

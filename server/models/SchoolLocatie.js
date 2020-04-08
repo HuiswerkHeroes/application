@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -11,32 +11,32 @@ const SchoolLocatieSchema = mongoose.Schema({
         required: true,
         uppercase: true,
         unique: true,
-        max: 6
+        max: 6,
     },
     hoofdvestiging: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
-        ref: 'SchoolHoofdvestiging'
+        ref: 'SchoolHoofdvestiging',
     },
     naam: {
         type: String,
-        required: true
+        required: true,
     },
     plaatsnaam: {
         type: String,
         required: true,
-        uppercase: true
+        uppercase: true,
     },
     adres: {
         type: String,
         required: true,
-        uppercase: true
+        uppercase: true,
     },
     actief: {
         type: Boolean,
         required: true,
-        default: true
-    }
+        default: true,
+    },
 });
 
-module.exports = mongoose.model('SchoolLocatie', SchoolLocatieSchema, { collection: 'school_locaties' });
+module.exports = mongoose.model('SchoolLocatie', SchoolLocatieSchema, 'school_locaties');

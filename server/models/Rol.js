@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -10,23 +10,23 @@ const RolSchema = mongoose.Schema({
         type: String,
         required: true,
         lowercase: true,
-        unique: true
+        unique: true,
     },
     weergaveNaam: {
         type: String,
-        required: true
+        required: true,
     },
     actief: {
         type: Boolean,
         required: true,
-        default: true
+        default: true,
     },
     permissies: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Permissie'
-        }
-    ]
+            ref: 'Permissie',
+        },
+    ],
 });
 
-module.exports = mongoose.model('Rol', RolSchema, { collection: 'rollen' });
+module.exports = mongoose.model('Rol', RolSchema, 'rollen');

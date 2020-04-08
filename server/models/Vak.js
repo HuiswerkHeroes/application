@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -9,13 +9,13 @@ const VakSchema = mongoose.Schema({
     naam: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     actief: {
         type: Boolean,
         required: true,
-        default: true
-    }
+        default: true,
+    },
 });
 
-module.exports = mongoose.model('Vak', VakSchema, { collection: 'vakken' });
+module.exports = mongoose.model('Vak', VakSchema, 'vakken');

@@ -37,15 +37,16 @@ router.post('/', gebruikerValidationRegels(), validate, async (req, res) => {
 
         const password = await hashPassword(password);
 
-        gebruiker = new Gebruiker({ voornaam, achternaam, email,  }).save();
+        gebruiker = await new Gebruiker({ voornaam, achternaam, email }).save();
 
         // Generate a Auth Token
-        generateAuthToken(gebruiker.id).then((token) => {
-            res.json({ token });
-        }).catch(() => {
-            return res.status(500).json({ msg: 'Something went wrong on our side.' });
-        });
-
+        generateAuthToken(gebruiker.id)
+            .then((token) => {
+                res.json({ token });
+            })
+            .catch(() => {
+                return res.status(500).json({ msg: 'Something went wrong on our side.' });
+            });
     } catch (err) {
         return res.status(500).json({ msg: 'Something went wrong on our side.' });
     }

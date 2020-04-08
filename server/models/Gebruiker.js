@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -10,46 +10,46 @@ const GebruikerSchema = mongoose.Schema(
         email: {
             type: String,
             required: true,
-            unique: true
+            unique: true,
         },
         voornaam: {
             type: String,
-            required: true
+            required: true,
         },
         achternaam: {
             type: String,
-            required: true
+            required: true,
         },
         setupAfgerond: {
             type: Boolean,
             required: true,
-            default: false
+            default: false,
         },
         gebruikerType: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'GebruikerType'
+            ref: 'GebruikerType',
         },
         rol: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'Rol'
+            ref: 'Rol',
         },
         opleiding: {
             type: mongoose.Schema.Types.ObjectId,
             required: false,
-            ref: 'Opleiding'
+            ref: 'Opleiding',
         },
         vakken: [
             {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: 'Vak'
-            }
-        ]
+                ref: 'Vak',
+            },
+        ],
     },
     {
-        timestamps: true
+        timestamps: true,
     }
 );
 
-module.exports = mongoose.model('Gebruiker', GebruikerSchema, { collection: 'gebruikers' });
+module.exports = mongoose.model('Gebruiker', GebruikerSchema, 'gebruikers');

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -10,13 +10,13 @@ const PermissieSchema = mongoose.Schema({
         type: String,
         required: true,
         lowercase: true,
-        unique: true
+        unique: true,
     },
     actief: {
         type: Boolean,
         required: true,
-        default: true
-    }
+        default: true,
+    },
 });
 
-module.exports = mongoose.model('Permissie', PermissieSchema, { collection: 'permissies' });
+module.exports = mongoose.model('Permissie', PermissieSchema, 'permissies');

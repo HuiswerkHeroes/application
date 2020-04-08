@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 
+ * Copyright (c) 2020
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
@@ -8,23 +8,23 @@ const mongoose = require('mongoose');
 const OpleidingSchema = mongoose.Schema({
     schoolLocatie: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'SchoolLocatie'
+        ref: 'SchoolLocatie',
     },
     naam: {
         type: String,
-        required: true
+        required: true,
     },
     vakken: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Vak'
-        }
+            ref: 'Vak',
+        },
     ],
     actief: {
         type: Boolean,
         required: true,
-        default: true
-    }
+        default: true,
+    },
 });
 
-module.exports = mongoose.model('Opleiding', OpleidingSchema, { collection: 'opleidingen' });
+module.exports = mongoose.model('Opleiding', OpleidingSchema, 'opleidingen');
