@@ -20,6 +20,10 @@ const GebruikerSchema = mongoose.Schema(
             type: String,
             required: true,
         },
+        wachtwoord: {
+            type: String,
+            required: true,
+        },
         setupAfgerond: {
             type: Boolean,
             required: true,
@@ -27,7 +31,7 @@ const GebruikerSchema = mongoose.Schema(
         },
         gebruikerType: {
             type: mongoose.Schema.Types.ObjectId,
-            required: true,
+            required: false,
             ref: 'GebruikerType',
         },
         rol: {
