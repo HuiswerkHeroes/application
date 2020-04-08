@@ -7,7 +7,6 @@ const express = require('express');
 const router = express.Router();
 
 // Middleware
-const auth = require('../middleware/isAuthenticated');
 const { validate } = require('../middleware/validate');
 const { gebruikerValidationRegels } = require('../middleware/routeMiddleware/gebruikerValidator.js');
 
@@ -17,14 +16,13 @@ const generateAuthToken = require('../utils/generateAuthToken');
 
 // Models
 const Gebruiker = require('../models/Gebruiker');
+const Rol = require('../models/Rol');
 
 /**
  *  @route   POST api/gebruiker
  *  @desc    Registreer een gebruiker
  *  @access  Public
- *  NOTE: Moet nog iets doen met gebruikerType & rol deze route werkt nog niet
  */
-
 router.post('/', gebruikerValidationRegels(), validate, async (req, res) => {
     const { email, voornaam, achternaam, wachtwoord } = req.body;
 
@@ -35,9 +33,11 @@ router.post('/', gebruikerValidationRegels(), validate, async (req, res) => {
             return res.status(409).json({ msg: 'Er is al een gebruiker geregistreerd met het opgegeven e-mailadres!' });
         }
 
-        const password = await hashPassword(password);
+        const defaultRol = await Rol.findOne({naam: "gebruiker"});
 
-        gebruiker = await new Gebruiker({ voornaam, achternaam, email }).save();
+        const wachtwoordHashed = await hashPassword(wachtwoord);
+
+        gebruiker = await new Gebruiker({ voornaam, achternaam, email, wachtwoord: wachtwoordHashed, rol: defaultRol.id }).save();
 
         // Generate a Auth Token
         generateAuthToken(gebruiker.id)
