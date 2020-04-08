@@ -3,73 +3,70 @@
  * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
-// const express = require('express');
-// const router = express.Router();
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
 
-// // Middleware
-// const auth = require('../middleware/auth');
-// const { validate } = require('../middleware/validate');
-// const { loginValidationRules } = require('../middleware/routeMiddleware/authValidator.js');
+// Middleware
+const isAuthenticated = require('../middleware/isAuthenticated');
+const { validate } = require('../middleware/validate');
+const { inloggenValidationRegels } = require('../middleware/routeMiddleware/authValidator.js');
 
-// // Models
-// const User = require('../models/User');
+// Models
+const Gebruiker = require('../models/Gebruiker');
 
-// // @route   GET api/auth
-// // @desc    Get logged in user
-// // @access  Private
-// router.get('/', auth, async (req, res) => {
-//     try {
-//         const user = await User.findById(req.user.id).select('-password');
+// Utils
+const generateAuthToken = require('../utils/generateAuthToken');
 
-//         return res.json(user);
-//     } catch (err) {
-//         console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: GET - api/auth] \x1b[31m${err.message}\x1b[0m`);
-//         return res.status(500).json({ msg: 'Something went wrong on our side.' });
-//     }
-// });
+/**
+ *  @route   GET api/auth
+ *  @desc    Vraag de gegevens op van de ingelogde gebruiker
+ *  @access  Private
+ */
+router.get('/', isAuthenticated, async (req, res) => {
+    try {
+        const gebruiker = await Gebruiker.findById(req.gebruiker.id).select('-password');
 
-// // @route   POST api/auth
-// // @desc    Auth user & get token
-// // @access  Public
-// router.post('/', loginValidationRules(), validate, async (req, res) => {
-//     const { email, password } = req.body;
+        return res.json(gebruiker);
+    } catch (err) {
+        return res.status(500).json({ msg: 'Something went wrong on our side.' });
+    }
+});
 
-//     try {
-//         const user = await User.findOne({ email });
+/**
+ *  @route   POST api/auth
+ *  @desc    Genereer een JWT op basis van inloggegevens
+ *  @access  Public
+ */
+router.post('/', inloggenValidationRegels(), validate, async (req, res) => {
+    const { email, wachtwoord } = req.body;
 
-//         if (!user) {
-//             return res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
-//         }
+    try {
+        const gebruiker = await Gebruiker.findOne({ email });
 
-//         const isMatch = await bcrypt.compare(password, user.password);
+        // Als er geen gebruiker is
+        if (!gebruiker) {
+            return res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
+        }
 
-//         if (!isMatch) {
-//             return res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
-//         }
+        const isMatch = await bcrypt.compare(wachtwoord, gebruiker.wachtwoord);
 
-//         const payload = {
-//             user: {
-//                 id: user.id
-//             }
-//         };
+        if (!isMatch) {
+            return res.status(400).json({ msg: 'E-mailadres komt niet overeen met het wachtwoord' });
+        }
 
-//         jwt.sign(
-//             payload,
-//             process.env.jwtSecret,
-//             {
-//                 expiresIn: 86400
-//             },
-//             (err, token) => {
-//                 if (err) throw err;
-//                 res.json({ token });
-//             }
-//         );
-//     } catch (err) {
-//         console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: POST - api/auth] \x1b[31m${err.message}\x1b[0m`);
-//         return res.status(500).json({ msg: 'Something went wrong on our side.' });
-//     }
-// });
+        // Genereer een JWT token
+        generateAuthToken(gebruiker.id)
+            .then((token) => {
+                res.json({ token });
+            })
+            .catch(() => {
+                return res.status(500).json({ msg: 'Something went wrong on our side.' });
+            });
+    } catch (err) {
+        console.error(`\x1b[41m\x1b[30m[ERROR]\x1b[0m \x1b[34m[Route: POST - api/auth] \x1b[31m${err.message}\x1b[0m`);
+        return res.status(500).json({ msg: 'Something went wrong on our side.' });
+    }
+});
 
-// module.exports = router;
+module.exports = router;
