@@ -1,15 +1,20 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+/*
+ * Copyright (c) 2020 
+ * Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
+ */
 
-Vue.use(Vuex)
+import Vue from 'vue';
+import Vuex from 'vuex';
+
+import auth from './modules/auth';
+
+Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {
-  },
-  mutations: {
-  },
-  actions: {
-  },
-  modules: {
-  }
-})
+    state: {},
+    mutations: {},
+    actions: {},
+    modules: {
+        auth
+    }
+});
