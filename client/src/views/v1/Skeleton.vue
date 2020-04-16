@@ -11,7 +11,7 @@
                     <span class="app-bar-title">HuiswerkHeroes</span>
 
                     <button class="btn btn-text btn-icon ml-auto btn-lg" ref="userDropdown">
-                        <latte-initials :initials="getUser.initials" class="avatar"></latte-initials>
+                        <latte-initials :initials="getGebruiker.initialen" class="avatar"></latte-initials>
                     </button>
                     <latte-popup :associate-with="$refs.userDropdown" :margin-x="-9">
                         <nav class="nav nav-list">
@@ -32,13 +32,13 @@
 </template>
 
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
-    export default {
+export default {
     name: 'Skeleton',
     data() {
         return {
-            initials: ''
+            initialen: ''
         };
     },
     methods: {
@@ -51,7 +51,7 @@
             });
         }
     },
-    computed: mapGetters('auth', ['getUser'])
+    computed: mapGetters('auth', ['getGebruiker'])
 };
 </script>
 
