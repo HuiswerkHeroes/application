@@ -2,10 +2,10 @@
     "name": "huiswerkheroes-server",
     "version": "1.0.0",
     "description": "HuiswerkHeroes",
-    "main": "server.js",
+    "main": "",
     "scripts": {
-        "start": "node server.js",
-        "server": "nodemon server.js"
+        "start": "node ",
+        "server": "nodemon "
     },
     "author": "Tygo Egmond",
     "license": "",
