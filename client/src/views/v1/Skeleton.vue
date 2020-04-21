@@ -42,12 +42,12 @@ export default {
         };
     },
     methods: {
-        ...mapActions('auth', { trySignOut: 'trySignOut' }),
+        ...mapActions('auth', { trySignOut: 'probeerUitloggen' }),
         async handleSignOut(e) {
             e.preventDefault();
 
             this.trySignOut().then(() => {
-                this.$router.push({ name: 'Login' });
+                this.$router.push({ name: 'Inloggen' });
             });
         }
     },

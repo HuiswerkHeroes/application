@@ -15,31 +15,28 @@ const getters = {
 };
 
 const actions = {
-    async tryLogin({ commit, dispatch }, data) {
+    async probeerInloggen({ commit, dispatch }, data) {
         try {
-            const res = await axios.post(process.env.VUE_APP_APIURL + '/api/auth', {
+            const res = await axios.post(process.env.VUE_APP_APIURL + '/api/v1/auth/inloggen', {
                 email: data.email,
                 wachtwoord: data.wachtwoord,
             });
 
             setAuthToken(res.data.token);
 
-            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
+            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
 
-            commit('setLogin', getUser.data);
+            commit('setInloggen', getUser.data.gebruiker);
         } catch (err) {
-            dispatch('trySignOut');
+            dispatch('probeerUitloggen');
             throw err;
         }
     },
-    async tryRegister({ commit, dispatch }, data) {
-        const { firstName, lastName, email, password } = data;
-        const voornaam = firstName;
-        const achternaam = lastName;
-        const wachtwoord = password;
+    async probeerRegistreren({ commit, dispatch }, data) {
+        const { voornaam, achternaam, email, wachtwoord } = data;
 
         try {
-            const res = await axios.post(process.env.VUE_APP_APIURL + '/api/gebruiker', {
+            const res = await axios.post(process.env.VUE_APP_APIURL + '/api/v1/auth/registreren', {
                 voornaam,
                 achternaam,
                 email,
@@ -48,15 +45,15 @@ const actions = {
 
             setAuthToken(res.data.token);
 
-            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
+            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
 
-            commit('setLogin', getUser.data);
+            commit('setInloggen', getUser.data.gebruiker);
         } catch (err) {
-            dispatch('trySignOut');
+            dispatch('probeerUitloggen');
             throw err;
         }
     },
-    async tryAuth({ commit, dispatch }) {
+    async probeerAuthenticeren({ commit, dispatch }) {
         try {
             if (localStorage.getItem('token') === null) {
                 return;
@@ -64,25 +61,25 @@ const actions = {
 
             setAuthToken(localStorage.getItem('token'));
 
-            const res = await axios.get(process.env.VUE_APP_APIURL + '/api/auth');
-            commit('setLogin', res.data);
+            const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
+            commit('setInloggen', res.data.gebruiker);
         } catch (err) {
-            dispatch('trySignOut');
+            dispatch('probeerUitloggen');
             throw err;
         }
     },
-    async trySignOut({ commit }) {
+    async probeerUitloggen({ commit }) {
         setAuthToken();
-        commit('setSignOut');
+        commit('setUitloggen');
     },
 };
 
 const mutations = {
-    setLogin: (state, gebruiker) => {
+    setInloggen: (state, gebruiker) => {
         state.gebruiker = gebruiker;
         state.gebruiker.initialen = gebruiker.voornaam[0] + gebruiker.achternaam[0];
     },
-    setSignOut: (state) => (state.user = {}),
+    setUitloggen: (state) => (state.gebruiker = {}),
 };
 
 export default {

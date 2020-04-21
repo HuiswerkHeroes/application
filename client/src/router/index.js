@@ -11,48 +11,48 @@ Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/login',
-        name: 'Login',
-        component: () => import(/* webpackMode: "lazy" */ '../views/Auth/Login.vue'),
+        path: '/inloggen',
+        name: 'Inloggen',
+        component: () => import(/* webpackMode: "lazy" */ '../views/auth/Inloggen.vue'),
         meta: {
             guest: true
         }
     },
     {
-        path: '/register',
-        name: 'Register',
-        component: () => import(/* webpackMode: "lazy" */ '../views/Auth/Register.vue'),
+        path: '/registreren',
+        name: 'Registreren',
+        component: () => import(/* webpackMode: "lazy" */ '../views/auth/Registreren.vue'),
         meta: {
             guest: true
         }
     },
     {
         path: '/v1',
-        component: () => import(/* webpackMode: "lazy" */ '@/views/v1/Skeleton.vue'),
+        component: () => import(/* webpackMode: "lazy" */ '../views/v1/Skeleton.vue'),
         meta: {
             requiresAuth: true
         },
         children: [
             {
-                path: 'register/setup/1',
-                name: 'RegisterSetup1',
-                component: () => import(/* webpackMode: "lazy" */ '../views/v1/register/setup/1.vue'),
+                path: 'registreren/setup/1',
+                name: 'RegistrerenSetup1',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/registreren/setup/1.vue'),
                 meta: {
                     isSetup: true
                 }
             },
             {
-                path: 'register/setup/student/2',
-                name: 'RegisterSetupStudent2',
-                component: () => import(/* webpackMode: "lazy" */ '../views/v1/register/setup/student/2.vue'),
+                path: 'registreren/setup/student/2',
+                name: 'RegistrerenSetupStudent2',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/registreren/setup/student/2.vue'),
                 meta: {
                     isSetup: true
                 }
             },
             {
-                path: 'register/setup/student/3',
-                name: 'RegisterSetupStudent3',
-                component: () => import(/* webpackMode: "lazy" */ '../views/v1/register/setup/student/3.vue'),
+                path: 'registreren/setup/student/3',
+                name: 'RegistrerenSetupStudent3',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/registreren/setup/student/3.vue'),
                 meta: {
                     isSetup: true
                 }
@@ -60,13 +60,13 @@ const routes = [
             {
                 path: '',
                 name: 'Dashboard',
-                component: () => import(/* webpackMode: "lazy" */ '@/views/v1/Dashboard.vue')
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/Dashboard.vue')
             }
         ]
     },
     {
         path: '*',
-        component: () => import(/* webpackMode: "lazy" */ '@/views/NotFound.vue')
+        component: () => import(/* webpackMode: "lazy" */ '../views/NotFound.vue')
     }
 ];
 
@@ -82,14 +82,14 @@ router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
         if (localStorage.getItem('token') == null) {
             next({
-                path: '/login',
+                path: '/inloggen',
                 params: { nextUrl: to.fullPath }
             });
         } else {
             const gebruiker = store.state.auth.gebruiker;
-            if (gebruiker.setupAfgerond === false) {
+            if (gebruiker.setup_afgerond === false) {
                 if (!to.matched.some(record => record.meta.isSetup)) {
-                    next({ name: 'RegisterSetup1' });
+                    next({ name: 'RegistrerenSetup1' });
                 } else {
                     next();
                 }

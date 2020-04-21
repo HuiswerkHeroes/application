@@ -18,8 +18,12 @@
                                 </div>
 
                                 <div class="panel-body">
-                                    <h5>Ik ben een ...</h5>
-                                    <div class="form-group">
+                                    <div v-if="this.loadingData" class="text-center">
+                                        <span class="spinner"></span>
+                                    </div>
+
+                                    <h5 v-if="!this.loadingData">Ik ben een ...</h5>
+                                    <div v-if="!this.loadingData" class="form-group">
                                         <label class="d-flex">
                                             <input type="radio" name="type" v-model="type" class="radio-button mr-3" value="Student" />
                                             <span>Student</span>
@@ -38,7 +42,7 @@
                                 </div>
                                 <div class="panel-footer">
                                     <div class="ml-auto">
-                                        <button class="btn btn-contained btn-primary" v-bind:disabled="this.loading" type="submit">
+                                        <button class="btn btn-contained btn-primary" v-bind:disabled="this.loading || this.loadingData" type="submit">
                                             <span v-if="this.loading" class="spinner"></span>
                                             <span>Volgende</span>
                                         </button>
@@ -64,10 +68,27 @@
         return {
             error: '',
             loading: false,
+            loadingData: true,
             type: 'Student'
         };
     },
     methods: {
+        async getTypes() {
+            if (!this.loadingData) {
+                return;
+            }
+            
+            try {
+                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/auth/registreren/sss', {
+                    type: this.type
+                });
+            } catch (err) {
+                await Latte.ui.notification.create({
+                    title: 'Er is iets fout gegaan!',
+                    message: 'Probeer het later opnieuw.'
+                });
+            }
+        },
         async handleSubmit(e) {
             e.preventDefault();
 
@@ -84,7 +105,7 @@
 
                 this.$router.push({ name: 'RegisterSetupStudent2' });
             } catch (err) {
-                Latte.ui.notification.create({
+                await Latte.ui.notification.create({
                     title: 'Er is iets fout gegaan!',
                     message: 'Probeer het later opnieuw.'
                 });
@@ -92,6 +113,9 @@
 
             this.loading = false;
         }
+    },
+   created() {
+        this.getTypes();
     }
 };
 </script>

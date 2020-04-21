@@ -10,12 +10,13 @@ import store from './store';
 
 import LatteUI from '@bybas/latte-ui';
 import '@bybas/latte-ui/src/scss/app.scss';
+import '../src/views/style/main.scss';
 
 Vue.use(LatteUI);
 
 Vue.config.productionTip = false;
 
-store.dispatch('auth/tryAuth').then(() => {
+store.dispatch('auth/probeerAuthenticeren').then(() => {
     new Vue({
         router,
         store,

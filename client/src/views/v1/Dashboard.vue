@@ -7,7 +7,7 @@
     <div>
         <Header />
         <ul class="mt-5">
-            <li v-bind:key="index" v-for="(item, index) in getUser">
+            <li v-bind:key="index" v-for="(item, index) in getGebruiker">
                 <strong> {{ index }}: </strong>
                 {{ item }}
             </li>
@@ -24,7 +24,7 @@ export default {
     components: {
         // Header
     },
-    computed: mapGetters('auth', ['getUser'])
+    computed: mapGetters('auth', ['getGebruiker'])
 };
 </script>
 
