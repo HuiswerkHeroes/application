@@ -22,6 +22,7 @@ class CreateSchoolHoofdvestigingenTable extends Migration
             $table->string('BRIN', 4)->unique();
             $table->string('gemeente');
             $table->string('naam');
+            $table->timestamps();
         });
     }
 
