@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @method static create(string[] $array)
+ * @method static where(string $string, bool $true)
  */
 class GebruikerType extends Model
 {

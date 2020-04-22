@@ -19,7 +19,7 @@ class TypeController extends Controller
 
     public function __invoke()
     {
-        $types = GebruikerType::all();
+        $types = GebruikerType::where('actief', true)->get();
 
         return response()->json([
             'types' => $types
