@@ -25,9 +25,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::group(['prefix' => 'auth'], function () {
             Route::post('inloggen', 'AuthController@authenticate');
             Route::post('registreren', 'AuthController@registreren');
-
         });
         Route::group(['prefix' => 'gebruikers'], function () {
+            Route::group(['prefix' => 'setup'], function () {
+                Route::post('gebruiker/type', 'Gebruiker\SetupController@setGebruikerType');
+            });
             Route::get('', 'Gebruiker\GebruikerController@getCurrentGebruiker');
             Route::get('types', 'Gebruiker\TypeController');
         });
