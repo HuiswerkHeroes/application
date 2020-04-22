@@ -21,6 +21,7 @@ class CreateGebruikerTypesTable extends Migration
             $table->id();
             $table->string('naam')->unique();
             $table->boolean('actief')->default(true);
+            $table->timestamps();
         });
     }
 
