@@ -33,4 +33,9 @@ class Opleiding extends Model
     protected $casts = [
         'actief' => 'boolean',
     ];
+
+    public function gebruikers()
+    {
+        return $this->hasMany('App\Gebruiker', 'opleiding_id', 'id');
+    }
 }
