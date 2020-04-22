@@ -23,6 +23,7 @@ class CreateOpleidingenTable extends Migration
             $table->string('naam');
             $table->text('vakken')->nullable();
             $table->boolean('actief')->default(true);
+            $table->timestamps();
         });
     }
 
