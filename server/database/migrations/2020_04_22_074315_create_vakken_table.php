@@ -16,6 +16,7 @@ class CreateVakkenTable extends Migration
         Schema::create('vakken', function (Blueprint $table) {
             $table->id();
             $table->string('naam')->unique();
+            $table->timestamps();
         });
     }
 
