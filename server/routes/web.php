@@ -28,7 +28,8 @@ Route::group(['prefix' => 'api'], function () {
 
         });
         Route::group(['prefix' => 'gebruikers'], function () {
-            Route::get('', 'GebruikerController@getCurrentGebruiker');
+            Route::get('', 'Gebruiker\GebruikerController@getCurrentGebruiker');
+            Route::get('types', 'Gebruiker\TypeController');
         });
     });
 });

@@ -4,9 +4,10 @@
  * Dit bestand is aangemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Gebruiker;
 
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class GebruikerController extends Controller
