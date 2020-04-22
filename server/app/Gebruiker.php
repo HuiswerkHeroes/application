@@ -39,4 +39,14 @@ class Gebruiker extends Model
     protected $casts = [
         'setup_afgerond' => 'boolean',
     ];
+
+    public function gebruikerType()
+    {
+        return $this->hasOne('App\GebruikerType', 'id', 'gebruiker_type_id');
+    }
+
+    public function opleiding()
+    {
+        return $this->hasOne('App\Opleiding', 'id', 'opleiding_id');
+    }
 }
