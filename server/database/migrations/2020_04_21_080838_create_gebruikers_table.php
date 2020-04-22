@@ -1,4 +1,8 @@
 <?php
+/**
+ * Copyright (c) 2020.
+ * Dit bestand is aangemaakt door Tygo Egmond (tygoegmond.nl)
+ */
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
