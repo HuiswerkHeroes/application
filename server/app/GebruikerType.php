@@ -9,6 +9,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static create(string[] $array)
+ */
 class GebruikerType extends Model
 {
     /**
