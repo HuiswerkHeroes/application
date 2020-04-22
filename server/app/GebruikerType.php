@@ -16,7 +16,7 @@ class GebruikerType extends Model
      *
      * @var string
      */
-    protected $table = 'gebruiker_type';
+    protected $table = 'gebruiker_types';
 
     /**
      * The attributes that are mass assignable.
