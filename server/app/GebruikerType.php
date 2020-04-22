@@ -33,4 +33,9 @@ class GebruikerType extends Model
     protected $casts = [
         'actief' => 'boolean',
     ];
+
+    public function gebruikers()
+    {
+        return $this->hasMany('App\Gebruiker', 'gebruiker_type_id', 'id');
+    }
 }
