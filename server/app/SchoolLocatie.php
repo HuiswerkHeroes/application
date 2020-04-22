@@ -60,4 +60,9 @@ class SchoolLocatie extends Model
     {
         $this->attributes['adres'] = strtoupper($value);
     }
+
+    public function hoofdvestiging()
+    {
+        return $this->hasOne('App\SchoolHoofdvestiging', 'id', 'hoofdvestiging_id');
+    }
 }
