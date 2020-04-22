@@ -38,4 +38,9 @@ class SchoolHoofdvestiging extends Model
     {
         $this->attributes['gemeente'] = strtoupper($value);
     }
+
+    public function locaties()
+    {
+        return $this->hasMany('App\SchoolLocatie', 'hoofdvestiging_id', 'id');
+    }
 }
