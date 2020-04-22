@@ -78,19 +78,18 @@
 
                 this.laden = true;
 
-                this.probeerInloggen({ email: this.email, wachtwoord: this.wachtwoord })
+                await this.probeerInloggen({ email: this.email, wachtwoord: this.wachtwoord })
                     .then(() => {
                         this.loading = false;
                         this.email = "";
                         this.wachtwoord = "";
                         this.$router.push({ name: "Dashboard" });
                     })
-                    .catch(err => {
-                        this.laden = false;
+                    .catch(async err => {
                         this.wachtwoord = '';
 
                         if (!err.response) {
-                            Latte.ui.notification.create({
+                            await Latte.ui.notification.create({
                                 title: 'Er is iets fout gegaan!',
                                 message: 'Probeer het later opnieuw.'
                             });
@@ -98,6 +97,8 @@
                             this.fout = err.response.data.error;
                         }
                     });
+
+                this.laden = false;
             }
         }
     };

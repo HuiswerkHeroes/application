@@ -87,7 +87,7 @@
 
             this.laden = true;
 
-            this.tryRegister({
+            await this.tryRegister({
                 voornaam: this.voornaam,
                 achternaam: this.achternaam,
                 email: this.email,
@@ -101,12 +101,11 @@
                     this.wachtwoord = '';
                     this.$router.push({ name: 'RegistrerenSetup1' });
                 })
-                .catch(err => {
-                    this.laden = false;
+                .catch(async err => {
                     this.wachtwoord = '';
 
                     if (!err.response) {
-                        Latte.ui.notification.create({
+                        await Latte.ui.notification.create({
                             title: 'Er is iets fout gegaan!',
                             message: 'Probeer het later opnieuw.'
                         });
@@ -115,6 +114,8 @@
                         this.fout = (data.error);
                     }
                 });
+
+            this.laden = false;
         }
     }
 };
