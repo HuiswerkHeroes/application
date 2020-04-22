@@ -25,6 +25,7 @@ class CreateSchoolLocatiesTable extends Migration
             $table->string('plaatsnaam');
             $table->string('adres');
             $table->boolean('actief')->default(true);
+            $table->timestamps();
         });
     }
 
