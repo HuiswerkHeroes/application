@@ -7,7 +7,9 @@
 namespace App;
 
 
-class SchoolLocatie extends \Illuminate\Database\Eloquent\Model
+use Illuminate\Database\Eloquent\Model;
+
+class SchoolLocatie extends Model
 {
     /**
      * Tabel naam
