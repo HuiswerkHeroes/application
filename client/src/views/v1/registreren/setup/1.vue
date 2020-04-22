@@ -9,41 +9,27 @@
             <div class="container">
                 <div class="row justify-content-center py-4">
                     <div class="col-sm-12 col-md-10 col-lg-6">
-                        <div v-if="this.error" class="notice notice-error my-4">{{ this.error }}</div>
+                        <div v-if="this.fout" class="notice notice-error my-4">{{ this.fout }}</div>
 
                         <form v-on:submit="handleSubmit">
                             <div class="panel">
-                                <div class="panel-header">
-                                    <span class="panel-title mx-auto">Registreren</span>
-                                </div>
-
                                 <div class="panel-body">
-                                    <div v-if="this.loadingData" class="text-center">
+                                    <div v-if="this.wachtenOpTypes" class="text-center">
                                         <span class="spinner"></span>
                                     </div>
 
-                                    <h5 v-if="!this.loadingData">Ik ben een ...</h5>
-                                    <div v-if="!this.loadingData" class="form-group">
-                                        <label class="d-flex">
-                                            <input type="radio" name="type" v-model="type" class="radio-button mr-3" value="Student" />
-                                            <span>Student</span>
-                                        </label>
-
-                                        <label class="d-flex">
-                                            <input type="radio" name="type" v-model="type" class="radio-button mr-3" value="Docent" />
-                                            <span>Docent</span>
-                                        </label>
-
-                                        <label class="d-flex">
-                                            <input type="radio" name="type" v-model="type" class="radio-button mr-3" value="HBVB" />
-                                            <span>HBVB (Huiswerk / Bijles Vrijwillige Begeleider)</span>
+                                    <h5 v-if="!this.wachtenOpTypes">Ik ben een ...</h5>
+                                    <div v-if="!this.wachtenOpTypes" class="form-group">
+                                        <label class="d-flex" v-for="type in types" :key="type.id">
+                                            <input type="radio" name="type" v-model="typeId" class="radio-button mr-3" :value="type.id" />
+                                            <span>{{ type.naam }}</span>
                                         </label>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
                                     <div class="ml-auto">
-                                        <button class="btn btn-contained btn-primary" v-bind:disabled="this.loading || this.loadingData" type="submit">
-                                            <span v-if="this.loading" class="spinner"></span>
+                                        <button class="btn btn-contained btn-primary" v-bind:disabled="this.laden || this.wachtenOpTypes" type="submit">
+                                            <span v-if="this.laden" class="spinner"></span>
                                             <span>Volgende</span>
                                         </button>
                                     </div>
@@ -66,22 +52,22 @@
     components: {},
     data() {
         return {
-            error: '',
-            loading: false,
-            loadingData: true,
-            type: 'Student'
+            fout: '',
+            laden: false,
+            wachtenOpTypes: true,
+            types: [],
+            typeId: 1
         };
     },
     methods: {
         async getTypes() {
-            if (!this.loadingData) {
+            if (!this.wachtenOpTypes) {
                 return;
             }
-            
             try {
-                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/auth/registreren/sss', {
-                    type: this.type
-                });
+                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/types');
+                this.types = res.data.types;
+                this.wachtenOpTypes = false;
             } catch (err) {
                 await Latte.ui.notification.create({
                     title: 'Er is iets fout gegaan!',
@@ -92,26 +78,30 @@
         async handleSubmit(e) {
             e.preventDefault();
 
-            if (this.loading) {
+            if (this.laden) {
                 return;
             }
 
-            this.loading = true;
+            this.laden = true;
 
             try {
-                await axios.post(process.env.VUE_APP_APIURL + '/api/user/setup/type', {
-                    type: this.type
+                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/gebruiker/type', {
+                    typeId: this.typeId
                 });
 
-                this.$router.push({ name: 'RegisterSetupStudent2' });
+                await this.$router.push({name: 'RegistrerenS'});
             } catch (err) {
-                await Latte.ui.notification.create({
-                    title: 'Er is iets fout gegaan!',
-                    message: 'Probeer het later opnieuw.'
-                });
+                if (!err.response) {
+                    await Latte.ui.notification.create({
+                        title: 'Er is iets fout gegaan!',
+                        message: 'Probeer het later opnieuw.'
+                    });
+                } else {
+                    this.fout = err.response.data.error;
+                }
             }
 
-            this.loading = false;
+            this.laden = false;
         }
     },
    created() {
