@@ -67,7 +67,7 @@
             this.laden = true;
 
             try {
-                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/scholen?q=' + this.zoekString);
+                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/scholen?q=' + this.zoekString);
                 this.scholen = res.data.scholen;
             } catch (err) {
                 if (!err.response) {
@@ -90,7 +90,7 @@
             this.laden = true;
 
             try {
-                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/gebruiker/school', {
+                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/school', {
                     schoolId: id
                 });
 

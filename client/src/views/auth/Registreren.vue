@@ -19,21 +19,25 @@
                                 </div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <small>Voornaam</small>
-                                        <input type="text" class="form-control" placeholder="Jan" v-model="voornaam">
+                                        <label for="voornaam">Voornaam</label>
+                                        <input type="text" class="form-control" id="voornaam" placeholder="Jan" v-model="voornaam" required>
                                     </div>
                                     <div class="form-group">
-                                        <small>Achternaam</small>
-                                        <input type="text" class="form-control" placeholder="Jansen" v-model="achternaam">
+                                        <label for="achternaam">Achternaam</label>
+                                        <input type="text" class="form-control" id="achternaam" placeholder="Jansen" v-model="achternaam" required>
                                     </div>
                                     <div class="form-group">
-                                        <small>E-mailadres</small>
-                                        <input type="email" class="form-control" placeholder="jan.jansen@voorbeeld.nl" v-model="email" required>
+                                        <label for="email">E-mailadres</label>
+                                        <input type="email" class="form-control" id="email" placeholder="jan.jansen@voorbeeld.nl" v-model="email" required>
                                     </div>
                                     <div class="form-group">
-                                        <small>Wachtwoord</small>
-                                        <input type="password" class="form-control" v-model="wachtwoord" autocomplete="new-password">
+                                        <label for="wachtwoord">Wachtwoord</label>
+                                        <input type="password" class="form-control" id="wachtwoord" v-model="wachtwoord" placeholder="Nieuw wachtwoord" autocomplete="new-password" required>
                                         <small>Een wachtwoord moet minimaal 6 karakters bevatten</small>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wachtwoordConfirm">Wachtwoord bevestigen</label>
+                                        <input type="password" class="form-control" id="wachtwoordConfirm" v-model="wachtwoordConfirm"  placeholder="Wachtwoord bevestigen" autocomplete="new-password" required>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
@@ -72,6 +76,7 @@
             achternaam: '',
             email: '',
             wachtwoord: '',
+            wachtwoordConfirm: '',
             fout: '',
             laden: false
         };
@@ -87,6 +92,14 @@
 
             this.laden = true;
 
+            if (this.wachtwoord !== this.wachtwoordConfirm) {
+                this.fout = 'Je hebt twee verschillende wachtwoorden gekozen.'
+                this.wachtwoord = '';
+                this.wachtwoordConfirm = '';
+                this.laden = false;
+                return;
+            }
+
             await this.tryRegister({
                 voornaam: this.voornaam,
                 achternaam: this.achternaam,
@@ -99,10 +112,12 @@
                     this.achternaam = '';
                     this.email = '';
                     this.wachtwoord = '';
+                    this.wachtwoordConfirm = '';
                     this.$router.push({ name: 'RegistrerenSetup1' });
                 })
                 .catch(async err => {
                     this.wachtwoord = '';
+                    this.wachtwoordConfirm = '';
 
                     if (!err.response) {
                         await Latte.ui.notification.create({

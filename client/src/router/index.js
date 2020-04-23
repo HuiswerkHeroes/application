@@ -61,7 +61,28 @@ const routes = [
                 path: '',
                 name: 'Dashboard',
                 component: () => import(/* webpackMode: "lazy" */ '../views/v1/Dashboard.vue')
-            }
+            },
+            {
+                path: 'gebruiker/instellingen',
+                component: () => import(/* webpackMode: "lazy" */ '../views/v1/gebruiker/instellingen/InstellingenSkeleton.vue'),
+                children: [
+                    {
+                        path: 'algemeen',
+                        name: 'Instellingen',
+                        component: () => import(/* webpackMode: "lazy" */ '../views/v1/gebruiker/instellingen/Algemeen.vue')
+                    },
+                    {
+                        path: 'e-mailadres',
+                        name: 'Instellingen-E-mailadres',
+                        component: () => import(/* webpackMode: "lazy" */ '../views/v1/gebruiker/instellingen/E-mailadres.vue')
+                    },
+                    {
+                        path: 'wachtwoord',
+                        name: 'Instellingen-Wachtwoord',
+                        component: () => import(/* webpackMode: "lazy" */ '../views/v1/gebruiker/instellingen/Wachtwoord.vue')
+                    },
+                ]
+            },
         ]
     },
     {

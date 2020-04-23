@@ -4,16 +4,15 @@
   -->
 
 <template>
-    <div>
-        <div class="app-bar app-bar-main app-bar-dark py-2">
-            <div class="app-bar-row app-bar-auto py-2">
-                <!-- <button class="btn btn-icon btn-text"></button> -->
-                <div class="app-bar-column">
-                    <span class="app-bar-title">Homework Heroes</span>
+    <header>
+        <div class="app-bar app-bar-primary">
+            <div class="container">
+                <div class="app-bar-row">
+                    <router-link class="app-bar-title nav-link" :to="{ name: 'Inloggen' }">HuiswerkHeroes</router-link>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 </template>
 
 <script>

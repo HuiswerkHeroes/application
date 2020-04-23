@@ -63,7 +63,7 @@
                 this.laden = true;
 
                 try {
-                    await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/gebruiker/opleiding', {
+                    await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/opleiding', {
                         opleidingId: id
                     });
 
@@ -101,7 +101,7 @@
             this.laden = true;
 
             try {
-                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/opleidingen');
+                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/opleidingen');
                 this.opleidingen = res.data.opleidingen;
                 this.filteredOpleidingen = res.data.opleidingen;
             } catch (err) {

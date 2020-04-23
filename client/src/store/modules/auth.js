@@ -24,7 +24,7 @@ const actions = {
 
             setAuthToken(res.data.token);
 
-            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
+            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker');
 
             commit('setInloggen', getUser.data.gebruiker);
         } catch (err) {
@@ -45,7 +45,7 @@ const actions = {
 
             setAuthToken(res.data.token);
 
-            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
+            const getUser = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker');
 
             commit('setInloggen', getUser.data.gebruiker);
         } catch (err) {
@@ -61,7 +61,7 @@ const actions = {
 
             setAuthToken(localStorage.getItem('token'));
 
-            const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
+            const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker');
 
             commit('setInloggen', res.data.gebruiker);
         } catch (err) {

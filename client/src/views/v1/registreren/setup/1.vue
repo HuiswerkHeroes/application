@@ -65,7 +65,7 @@
                 return;
             }
             try {
-                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/types');
+                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/types');
                 this.types = res.data.types;
                 this.wachtenOpTypes = false;
             } catch (err) {
@@ -85,7 +85,7 @@
             this.laden = true;
 
             try {
-                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/gebruiker/type', {
+                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/type', {
                     typeId: this.typeId
                 });
 
