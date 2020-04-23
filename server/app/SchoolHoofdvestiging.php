@@ -9,6 +9,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static create(string[] $array)
+ * @method static where(string $string, string $searchString)
+ */
 class SchoolHoofdvestiging extends Model
 {
     /**

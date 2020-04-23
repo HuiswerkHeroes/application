@@ -29,6 +29,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::group(['prefix' => 'gebruikers'], function () {
             Route::group(['prefix' => 'setup'], function () {
                 Route::post('gebruiker/type', 'Gebruiker\SetupController@setGebruikerType');
+                Route::get('scholen', 'Gebruiker\SetupController@getScholen');
+                Route::post('gebruiker/school', 'Gebruiker\SetupController@setSchool');
+                Route::get('opleidingen', 'Gebruiker\SetupController@getOpleiding');
+                Route::post('gebruiker/opleiding', 'Gebruiker\SetupController@setOpleiding');
             });
             Route::get('', 'Gebruiker\GebruikerController@getCurrentGebruiker');
             Route::get('types', 'Gebruiker\TypeController');

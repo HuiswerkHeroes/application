@@ -25,6 +25,7 @@ class CreateGebruikersTable extends Migration
             $table->string('wachtwoord');
             $table->boolean('setup_afgerond')->default(false);
             $table->integer('gebruiker_type_id')->nullable();
+            $table->integer('school_locatie_id')->nullable();
             $table->integer('opleiding_id')->nullable();
             $table->text('vakken')->nullable();
             $table->timestamps();

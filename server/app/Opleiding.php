@@ -9,6 +9,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static where(string $string, bool $true)
+ * @method static create(array $array)
+ */
 class Opleiding extends Model
 {
     /**

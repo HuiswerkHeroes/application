@@ -21,7 +21,7 @@ class Gebruiker extends Model
      * @var array
      */
     protected $fillable = [
-        'email', 'voornaam', 'achternaam', 'wachtwoord', 'setup_afgerond', 'gebruiker_type_id', 'opleiding_id', 'vakken',
+        'email', 'voornaam', 'achternaam', 'wachtwoord', 'setup_afgerond', 'gebruiker_type_id', 'school_locatie_id', 'opleiding_id', 'vakken',
     ];
 
     /**
@@ -43,6 +43,11 @@ class Gebruiker extends Model
     public function gebruikerType()
     {
         return $this->hasOne('App\GebruikerType', 'id', 'gebruiker_type_id');
+    }
+
+    public function schoolLocatie()
+    {
+        return $this->hasOne('App\SchoolLocatie', 'id', 'school_locatie_id');
     }
 
     public function opleiding()
