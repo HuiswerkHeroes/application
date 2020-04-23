@@ -89,7 +89,9 @@
                     typeId: this.typeId
                 });
 
-                await this.$router.push({name: 'RegistrerenS'});
+                if (this.typeId === 1) {
+                    await this.$router.push({name: 'RegistrerenSetupStudent2'});
+                }
             } catch (err) {
                 if (!err.response) {
                     await Latte.ui.notification.create({

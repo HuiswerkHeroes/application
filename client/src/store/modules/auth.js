@@ -62,6 +62,7 @@ const actions = {
             setAuthToken(localStorage.getItem('token'));
 
             const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers');
+
             commit('setInloggen', res.data.gebruiker);
         } catch (err) {
             dispatch('probeerUitloggen');

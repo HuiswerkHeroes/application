@@ -22,4 +22,10 @@ store.dispatch('auth/probeerAuthenticeren').then(() => {
         store,
         render: h => h(App)
     }).$mount('#app');
+}).catch(() => {
+    new Vue({
+        router,
+        store,
+        render: h => h(App)
+    }).$mount('#app');
 });

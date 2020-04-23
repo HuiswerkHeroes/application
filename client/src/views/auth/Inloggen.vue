@@ -24,7 +24,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="wachtwoord">Wachtwoord</label>
-                                        <input type="password" class="form-control" id="wachtwoord" v-model="wachtwoord" required>
+                                        <input type="password" class="form-control" id="wachtwoord" v-model="wachtwoord" required current-password="">
                                     </div>
                                 </div>
                                 <div class="panel-footer">

@@ -1,51 +1,39 @@
-<!--
-  - Copyright (c) 2020
-  - Dit project is gemaakt door Tygo Egmond (tygoegmond.nl)
-  -->
-
 <template>
     <div>
         <div>
             <div class="container">
                 <div class="row justify-content-center py-4">
                     <div class="col-sm-12 col-md-10 col-lg-6">
-                        <div v-if="this.error" class="notice notice-error my-4">{{ this.error }}</div>
+                        <div v-if="this.fout" class="notice notice-error my-4">{{ this.fout }}</div>
 
-                        <form v-on:submit="handleSubmit">
+                        <form>
                             <div class="panel">
-                                <div class="panel-header">
-                                    <span class="panel-title mx-auto">Registreren</span>
-                                </div>
-
                                 <div class="panel-body">
-                                    <h5>Typ je schoolnaam</h5>
+                                    <h5 class="text-center ">Op welke school zit je?</h5>
 
-                                    <div class="mx-auto text-center" v-if="this.loadingSchools"><span class="spinner"></span></div>
+                                    <div class="form-group input-group mt-4">
+                                        <input type="text" class="form-control my-4" v-model="zoekString" placeholder="Typ je schoolnaam of de adres van je school..." v-on:keydown="handleSearch">
+                                    </div>
 
-                                    <!-- TODO: Veranderen naar select met typen -->
-                                    <div v-if="!this.loadingSchools" class="form-group">
-                                        <select v-model="selected" class="custom-select">
-                                            <option :key="school.id" v-for="school in schools" :value="school._id">
-                                                {{ school.name }} ({{ school.city }})
-                                            </option>
-                                        </select>
+                                    <div class="list">
+                                        <latte-ripple v-for="school in scholen" :key="school.id" as="a" class="list-item link-d" @click="handleSchool(school.id)">
+                                            <div class="list-item-caption">
+                                                <strong>{{school.naam}}</strong>
+                                                <span class="text-soft">
+                                                    {{ school.adres.charAt(0).toUpperCase() + school.adres.toLowerCase().slice(1) }},
+                                                    {{ school.plaatsnaam.charAt(0).toUpperCase() + school.plaatsnaam.toLowerCase().slice(1) }}
+                                                </span>
+                                            </div>
+                                        </latte-ripple>
                                     </div>
                                 </div>
+
                                 <div class="panel-footer">
-                                    <router-link class="btn btn-soft btn-primary" :to="{ name: 'RegisterSetup1' }">Vorige</router-link>
-                                    <div class="ml-auto">
-                                        <button
-                                            class="btn btn-contained btn-primary"
-                                            v-bind:disabled="this.loading || this.loadingSchools"
-                                            type="submit"
-                                        >
-                                            <span v-if="this.loading" class="spinner"></span>
-                                            <span>Volgende</span>
-                                        </button>
-                                    </div>
+                                    <router-link class="btn btn-soft btn-primary" :to="{ name: 'RegistrerenSetup1' }">Vorige</router-link>
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -54,59 +42,71 @@
 </template>
 
 <script>
-    import axios from 'axios';
-    import {Latte} from '@bybas/latte-ui';
+    import axios from "axios";
+    import {Latte} from "@bybas/latte-ui";
 
     export default {
-    name: 'RegisterSetup1',
+    name: 'RegistrerenSetupStudent2',
     components: {},
     data() {
         return {
             error: '',
-            schools: {},
-            selected: '5e8461e6e95181d1bb61537c',
-            loadingSchools: true,
-            loading: false
+            zoekString: '',
+            scholen: [],
+            laden: false,
+            fout: ''
         };
     },
     methods: {
-        async handleSubmit(e) {
-            e.preventDefault();
-
-            if (this.loading || this.loadingSchools) {
+        async handleSearch() {
+            if (this.zoekString.length < 3) {
                 return;
             }
 
-            this.loading = true;
+            this.scholen = [];
+            this.laden = true;
 
             try {
-                await axios.post(process.env.VUE_APP_APIURL + '/api/user/setup/school', {
-                    schoolId: this.selected
-                });
-
-                this.$store.state.auth.user.setupComplete = true;
-                this.$router.push({ name: 'Dashboard' });
+                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/scholen?q=' + this.zoekString);
+                this.scholen = res.data.scholen;
             } catch (err) {
-                console.error(err);
-                Latte.ui.notification.create({
-                    title: 'Er is iets fout gegaan!',
-                    message: 'Probeer het later opnieuw.'
-                });
+                if (!err.response) {
+                    await Latte.ui.notification.create({
+                        title: 'Er is iets fout gegaan!',
+                        message: 'Probeer het later opnieuw.'
+                    });
+                } else {
+                    this.fout = err.response.data.error;
+                }
             }
 
-            this.loading = false;
-        }
-    },
-    async created() {
-        try {
-            const res = await axios.get(process.env.VUE_APP_APIURL + '/api/school');
-            this.schools = res.data;
-            this.loadingSchools = false;
-        } catch (err) {
-            Latte.ui.notification.create({
-                title: 'Er is iets fout gegaan!',
-                message: 'Kan de scholen niet ophalen, probeer het later opnieuw!'
-            });
+            this.laden = false;
+        },
+        async handleSchool(id) {
+            if (this.laden === true) {
+                return;
+            }
+
+            this.laden = true;
+
+            try {
+                await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruikers/setup/gebruiker/school', {
+                    schoolId: id
+                });
+
+                await this.$router.push({name: 'RegistrerenSetupStudent3'});
+            } catch (err) {
+                if (!err.response) {
+                    await Latte.ui.notification.create({
+                        title: 'Er is iets fout gegaan!',
+                        message: 'Probeer het later opnieuw.'
+                    });
+                } else {
+                    this.fout = err.response.data.error;
+                }
+            }
+
+            this.laden = false;
         }
     }
 };
