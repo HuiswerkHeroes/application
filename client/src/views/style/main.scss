@@ -15,3 +15,13 @@ body {
 .form-group label {
   font-weight: bold;
 }
+
+#sidebar {
+  height: 100%;
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
