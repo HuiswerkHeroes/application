@@ -10,10 +10,18 @@
 
         <div class="panel">
             <form v-on:submit="handleSubmit">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="oud-wachtwoord">Huidig wachtwoord</label>
+                        <input id="oud-wachtwoord" type="password" class="form-control" v-model="oudWachtwoord" placeholder="Huidig wachtwoord" required />
+                    </div>
+                </div>
+
+                <div class="divider divider-horizontal"></div>
 
                 <div class="panel-body">
                     <div class="form-group">
-                        <label for="nieuw-wachtwoord">Nieuw Wachtwoord</label>
+                        <label for="nieuw-wachtwoord">Nieuw wachtwoord</label>
                         <input id="nieuw-wachtwoord" type="password" class="form-control" v-model="nieuwWachtwoord" placeholder="Nieuw wachtwoord" required />
                     </div>
 
@@ -22,13 +30,7 @@
                         <input id="nieuw-wachtwoord-confirm" type="password" class="form-control" v-model="nieuwWachtwoordConfirm" placeholder="Wachtwoord bevestigen" required />
                     </div>
                 </div>
-                <div class="divider divider-horizontal"></div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label for="oud-wachtwoord">Wachtwoord bevestigen</label>
-                        <input id="oud-wachtwoord" type="password" class="form-control" v-model="oudWachtwoord" placeholder="Wachtwoord bevestigen" required />
-                    </div>
-                </div>
+
                 <div class="panel-footer">
                     <button type="submit" class="btn btn-contained btn-primary ml-auto" v-bind:disabled="this.laden">
                         <span v-if="this.laden" class="spinner"></span>
