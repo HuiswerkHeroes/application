@@ -29,12 +29,12 @@ class AuthMiddleware
             $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
         } catch (ExpiredException $e) {
             return response()->json([
-                'error' => 'Provided authorization token is expired.'
-            ], 400);
+                'error' => 'U bent uitgelogd, herlaad de pagina.'
+            ], 401);
         } catch (Exception $e) {
             return response()->json([
                 'error' => 'Invalid authorization token.'
-            ], 400);
+            ], 401);
         }
 
         // Vind de gebruiker
