@@ -12,11 +12,19 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import LatteUI from "@bybas/latte-ui";
 import "@bybas/latte-ui/src/scss/app.scss";
 import "../src/views/style/main.scss";
+import axios from "axios";
 
 Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(LatteUI);
 
 Vue.config.productionTip = false;
+
+axios.interceptors.response.use(null, function (err) {
+  if (err.response.status === 401) {
+    store.dispatch("auth/probeerUitloggen").then(() => console.log("sdasadsa"));
+  }
+  return Promise.reject(err);
+});
 
 store
   .dispatch("auth/probeerAuthenticeren")
