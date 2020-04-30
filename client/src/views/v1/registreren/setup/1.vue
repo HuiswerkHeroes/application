@@ -14,10 +14,6 @@
                         <form v-on:submit="handleSubmit">
                             <div class="panel">
                                 <div class="panel-body">
-                                    <div v-if="this.wachtenOpTypes" class="text-center">
-                                        <span class="spinner"></span>
-                                    </div>
-
                                     <h5 v-if="!this.wachtenOpTypes">Ik ben een ...</h5>
                                     <div v-if="!this.wachtenOpTypes" class="form-group">
                                         <label class="d-flex" v-for="type in types" :key="type.id">
@@ -33,6 +29,9 @@
                                             <span>Volgende</span>
                                         </button>
                                     </div>
+                                </div>
+                                <div v-if="this.wachtenOpTypes || this.laden" class="loading-overlay">
+                                    <span class="spinner"></span>
                                 </div>
                             </div>
                         </form>

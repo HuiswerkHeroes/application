@@ -25,6 +25,9 @@
                                                 </span>
                                             </div>
                                         </latte-ripple>
+                                        <div v-if="this.laden" class="loading-overlay">
+                                            <span class="spinner"></span>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -44,6 +47,8 @@
 <script>
     import axios from "axios";
     import {Latte} from "@bybas/latte-ui";
+
+    let call;
 
     export default {
     name: 'RegistrerenSetupStudent2',
@@ -66,11 +71,23 @@
             this.scholen = [];
             this.laden = true;
 
+            if (call) {
+                call.cancel();
+            }
+
+            call = axios.CancelToken.source();
+
             try {
-                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/scholen?q=' + this.zoekString);
+                const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/scholen?q=' + this.zoekString, {
+                    cancelToken: call.token
+                });
+
                 this.scholen = res.data.scholen;
             } catch (err) {
-                if (!err.response) {
+                console.log(axios.isCancel(err));
+                if (axios.isCancel(err)) {
+                    return;
+                } else if (!err.response) {
                     await Latte.ui.notification.create({
                         title: 'Er is iets fout gegaan!',
                         message: 'Probeer het later opnieuw.'
