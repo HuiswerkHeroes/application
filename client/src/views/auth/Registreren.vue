@@ -51,6 +51,10 @@
                                         </button>
                                     </div>
                                 </div>
+
+                                <div v-if="this.laden" class="loading-overlay">
+                                    <span class="spinner"></span>
+                                </div>
                             </div>
                         </form>
                     </div>
