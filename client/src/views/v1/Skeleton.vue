@@ -5,7 +5,7 @@
 
 <template>
     <div>
-        <header>
+        <header id="app-header">
             <div class="app-bar app-bar-primary">
                 <div class="app-bar-row">
                     <router-link class="app-bar-title nav-link" :to="{ name: 'Dashboard' }">HuiswerkHeroes</router-link>
@@ -33,17 +33,15 @@
             </div>
         </header>
 
-        <aside id="sidebar">
-            <latte-bottom-nav is-side class="bottom-nav-dark">
-                <latte-ripple as="a" class="btn btn-action"><i class="mdi mdi-home"></i><span>Home</span></latte-ripple>
-                <latte-ripple as="a" class="btn btn-action"><i class="mdi mdi-compass"></i><span>Discover</span></latte-ripple>
-                <latte-ripple as="a" class="btn btn-action"><i class="mdi mdi-music-note"></i><span>My music</span></latte-ripple>
-                <latte-ripple as="a" class="btn btn-action"><i class="mdi mdi-radio-tower"></i><span>Radio</span></latte-ripple>
-                <latte-ripple as="a" class="btn btn-action"><i class="mdi mdi-shopping-music"></i><span>Store</span></latte-ripple>
+        <aside id="is-sidebar">
+            <latte-bottom-nav is-side class="bottom-nav-dark" id="app-sidebar">
+                <latte-ripple as="a" class="btn btn-action w-100">
+                    <i class="mdi mdi-home"></i><span>Home</span>
+                </latte-ripple>
             </latte-bottom-nav>
         </aside>
 
-        <main>
+        <main id="main-view">
             <router-view />
         </main>
     </div>

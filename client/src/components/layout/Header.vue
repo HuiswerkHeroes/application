@@ -4,7 +4,7 @@
   -->
 
 <template>
-    <header>
+    <header id="app-header">
         <div class="app-bar app-bar-primary">
             <div class="container">
                 <div class="app-bar-row">

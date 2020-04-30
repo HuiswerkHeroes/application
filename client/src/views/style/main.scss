@@ -1,0 +1,42 @@
+/*!
+ * Copyright (c) 2020.
+ * Dit bestand is aangemaakt door Tygo Egmond (tygoegmond.nl)
+ */
+
+body {
+  background: hsl(213.33deg, 36%, 95%);
+  margin-top: 60px;
+}
+
+.py-10 {
+  padding-top: 60px!important;
+  padding-bottom: 60px!important;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+#app-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+#app-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-top: 60px;
+  height: calc(100% - 60px);
+  background: rgb(25,26,28);
+  box-shadow: 0 5px 5px -3px rgba(127,127,127,0.05),0px 8px 10px 1px rgba(127,127,127,0.035),0px 3px 14px 2px rgba(127,127,127,0.06);
+  display: block;
+  z-index: 500;
+  overflow-y: auto;
+}
+
+#main-view {
+  margin-left: 72px;
+}
