@@ -21,7 +21,7 @@ Vue.config.productionTip = false;
 
 axios.interceptors.response.use(null, function (err) {
   if (err.response.status === 401) {
-    store.dispatch("auth/probeerUitloggen").then(() => console.log("sdasadsa"));
+    store.dispatch("auth/probeerUitloggen");
   }
   return Promise.reject(err);
 });
