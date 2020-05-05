@@ -41,7 +41,7 @@ class SetupController extends Controller
         try {
             GebruikerType::where('id', $request->get('typeId'))->where('actief', true)->firstOrFail();
         } catch (ModelNotFoundException $ex) {
-            return response()->json(['error'=> 'Er is geen actieve gebruiker type met dat typeId' ], 422);
+            return response()->json(['error'=> 'Er is geen actieve gebruikerType met dat typeId' ], 422);
         }
 
         $gebruiker = $request->auth;
