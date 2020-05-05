@@ -31,7 +31,7 @@ class SetupController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'typeId' => 'required',
+            'typeId' => 'required|numeric',
         ]);
 
         if ($validator->fails()) {
