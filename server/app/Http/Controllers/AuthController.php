@@ -68,8 +68,11 @@ class AuthController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function registreren(Request $request) {
-        /** @noinspection PhpUnhandledExceptionInspection */
         $validator = Validator::make($request->all(), [
             'voornaam' => 'required',
             'achternaam' => 'required',
