@@ -36,15 +36,16 @@ class AuthController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse
-     * @throws ValidationException
      */
     public function authenticate(Request $request) {
-
-        /** @noinspection PhpUnhandledExceptionInspection */
-        $this->validate($request, [
+        $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'wachtwoord' => 'required'
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error'=> $validator->errors()->first() ], 422);
+        }
 
         $gebruiker = Gebruiker::where('email', $request->input('email'))->first();
 
