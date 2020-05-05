@@ -77,7 +77,7 @@ class SetupController extends Controller
                 $query->where('naam', 'LIKE', '%'.$request->get('q').'%')
                     ->orWhere('adres', 'LIKE', '%'.$request->get('q').'%')
                     ->orWhere('plaatsnaam', 'LIKE', '%'.$request->get('q').'%');
-            })->limit(5)->get();;
+            })->limit(5)->get();
 
         return response()->json([
             'scholen' => $scholen
