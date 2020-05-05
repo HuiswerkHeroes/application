@@ -31,7 +31,7 @@ Route::group(['prefix' => 'api'], function () {
                 Route::post('type', 'Gebruiker\SetupController@setGebruikerType');
                 Route::get('scholen', 'Gebruiker\SetupController@getScholen');
                 Route::post('school', 'Gebruiker\SetupController@setSchool');
-                Route::get('opleidingen', 'Gebruiker\SetupController@getOpleiding');
+                Route::get('opleidingen', 'Gebruiker\SetupController@getOpleidingen');
                 Route::post('opleiding', 'Gebruiker\SetupController@setOpleiding');
             });
             Route::group(['prefix' => 'instellingen'], function () {

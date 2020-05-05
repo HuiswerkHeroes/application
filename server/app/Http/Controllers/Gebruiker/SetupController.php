@@ -121,7 +121,7 @@ class SetupController extends Controller
         }
     }
 
-    public function getOpleiding(Request $request) {
+    public function getOpleidingen(Request $request) {
         if ($request->auth->setup_afgerond) {
             return response()->json([
                 'error' => 'Dit account is al ingesteld.'
