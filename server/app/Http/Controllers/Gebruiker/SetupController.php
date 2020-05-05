@@ -122,9 +122,9 @@ class SetupController extends Controller
     }
 
     public function getOpleidingen(Request $request) {
-        if ($request->auth->setup_afgerond) {
+        if ($request->auth->setup_afgerond || $request->auth->gebruiker_type_id !== 1) {
             return response()->json([
-                'error' => 'Dit account is al ingesteld.'
+                'error' => 'Er is een fout opgetreden, dit account is waarschijnlijk al ingesteld.'
             ], 400);
         }
 
@@ -138,9 +138,9 @@ class SetupController extends Controller
     }
 
     public function setOpleiding(Request $request) {
-        if ($request->auth->setup_afgerond) {
+        if ($request->auth->setup_afgerond || $request->auth->gebruiker_type_id !== 1) {
             return response()->json([
-                'error' => 'Dit account is al ingesteld.'
+                'error' => 'Er is een fout opgetreden, dit account is waarschijnlijk al ingesteld.'
             ], 400);
         }
 
