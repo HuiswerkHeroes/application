@@ -8,14 +8,19 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import LatteUI from "@bybas/latte-ui";
 import "@bybas/latte-ui/src/scss/app.scss";
 import "../src/views/style/main.scss";
 import axios from "axios";
 
-Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.use(LatteUI);
+
+// Fontawesome
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+library.add(fas);
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 
 Vue.config.productionTip = false;
 
