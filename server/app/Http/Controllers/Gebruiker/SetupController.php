@@ -158,16 +158,16 @@ class SetupController extends Controller
             return response()->json(['error'=> $validator->errors()->first() ], 422);
         }
 
-        try {
-            Opleiding::where('id', $request->get('opleidingId'))->where('actief', true)->firstOrFail();
-        } catch (ModelNotFoundException $ex) {
-            return response()->json(['error'=> 'Er is geen actieve opleiding met de opgegeven opleidingId' ], 422);
-        }
-
         if ($request->auth->gebruiker_type_id === null) {
             return response()->json(['error'=> 'Deze actie is niet mogelijk op dit moment.' ], 422);
         } else if ($request->auth->school_locatie_id === null) {
             return response()->json(['error'=> 'Deze actie is niet mogelijk op dit moment.' ], 422);
+        }
+
+        try {
+            Opleiding::where('id', $request->get('opleidingId'))->where('actief', true)->where('school_locatie_id', $request->auth->school_locatie_id)->firstOrFail();
+        } catch (ModelNotFoundException $ex) {
+            return response()->json(['error'=> 'Er is geen actieve opleiding met de opgegeven opleidingId.' ], 422);
         }
 
         $gebruiker = $request->auth;
