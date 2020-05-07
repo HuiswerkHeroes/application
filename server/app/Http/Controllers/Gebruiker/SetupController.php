@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Gebruiker;
 use App\GebruikerType;
 use App\Http\Controllers\Controller;
 use App\Opleiding;
+use App\SchoolHoofdvestiging;
 use App\SchoolLocatie;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -78,6 +79,11 @@ class SetupController extends Controller
                     ->orWhere('adres', 'LIKE', '%'.$request->get('q').'%')
                     ->orWhere('plaatsnaam', 'LIKE', '%'.$request->get('q').'%');
             })->limit(5)->get();
+
+        if ($scholen->count() === 0) {
+            $scholen = SchoolHoofdvestiging::where('naam', 'LIKE', '%'.$request->get('q').'%')
+                ->with('locaties')->get()->pluck('locaties')->flatten();
+        }
 
         return response()->json([
             'scholen' => $scholen
