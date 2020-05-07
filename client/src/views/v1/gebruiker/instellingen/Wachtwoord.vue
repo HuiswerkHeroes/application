@@ -34,7 +34,7 @@
                 <div class="panel-footer">
                     <button type="submit" class="btn btn-contained btn-primary ml-auto" v-bind:disabled="this.laden">
                         <span v-if="this.laden" class="spinner"></span>
-                        <span>Opslaan</span>
+                        <span>Wachtwoord veranderen</span>
                     </button>
                 </div>
             </form>
