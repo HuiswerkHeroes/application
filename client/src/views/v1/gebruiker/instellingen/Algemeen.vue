@@ -26,7 +26,9 @@
                 </div>
             </form>
             <div class="loading-overlay">
-                <span class="spinner"></span>
+                <div class="d-block text-center m-3">
+                    <span class="text-warning">Niet functioneel.</span>
+                </div>
             </div>
         </div>
     </div>
@@ -34,7 +36,6 @@
 
 <script>
     import {mapGetters} from 'vuex';
-    // import Header from '@/components/layout/Header';
 
     export default {
         name: 'Instellingen',
