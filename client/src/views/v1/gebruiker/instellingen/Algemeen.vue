@@ -46,11 +46,10 @@
                 success: ''
             };
         },
-        components: {
-        },
         computed: mapGetters('auth', ['getGebruiker']),
         mounted() {
             this.voornaam = this.getGebruiker.voornaam;
+            this.achternaam = this.getGebruiker.achternaam;
         }
     };
 </script>
