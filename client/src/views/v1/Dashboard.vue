@@ -5,25 +5,73 @@
 
 <template>
     <div>
-        <Header />
-        <ul class="mt-5">
-            <li v-bind:key="index" v-for="(item, index) in getGebruiker">
-                <strong> {{ index }}: </strong>
-                {{ item }}
-            </li>
-        </ul>
+        <div>
+            <div id="dashboardContainer" class="container">
+                <div class="row justify-content-around">
+                    <div class="col-md-4 mt-3">
+                        <a href="" class="text-decoration-none">
+                            <div class="panel">
+                                <div class="panel-body dashboardPanel">
+                                    <div class="text-center dashboardPanelContent">
+                                        <div class="mb-4">
+                                            <font-awesome-icon icon="users" class="dashboardIcon usersIcon" />
+                                        </div>
+                                        <div>
+                                            <h4 class="font-weight-bold">Gebruikers</h4>
+                                            <p>
+                                                Een lijst van alle gebruikers die een account hebben op HuiswerkHeroes.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4 mt-3">
+                        <a href="" class="text-decoration-none">
+                            <div class="panel">
+                                <div class="panel-body dashboardPanel">
+                                    <div class="text-center dashboardPanelContent">
+                                        <div class="mb-4">
+                                            <font-awesome-icon icon="user-lock" class="dashboardIcon rbacIcon" />
+                                        </div>
+                                        <div>
+                                            <h4 class="font-weight-bold">Rollen / Permissies</h4>
+                                            <p>
+                                                Een overzicht van alle rollen en permissies die er zijn op HuiswerkHeroes.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel m-5">
+            <div class="panel-header">
+                <span class="panel-title">Debug Information</span>
+            </div>
+            <div class="panel-body">
+                <ul>
+                    <li v-bind:key="index" v-for="(item, index) in getGebruiker">
+                        <strong> {{ index }}: </strong>
+                        {{ item }}
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex';
-    // import Header from '@/components/layout/Header';
 
 export default {
     name: 'Dashboard',
-    components: {
-        // Header
-    },
     computed: mapGetters('auth', ['getGebruiker'])
 };
 </script>

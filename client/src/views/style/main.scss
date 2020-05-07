@@ -64,3 +64,27 @@ body {
 .loading-overlay span {
   font-size: 2rem;
 }
+
+.dashboardPanelContent {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction: column;
+  height: 250px;
+}
+
+.dashboardIcon {
+  font-size: 50px;
+}
+
+.rbacIcon {
+  color: #BA8961;
+}
+
+.usersIcon {
+  color: #80C1A8;
+}
+
+.rbacRoleIcon {
+  color: #7D91A7;
+}
