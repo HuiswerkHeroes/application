@@ -41,17 +41,20 @@ const routes = [
     },
     children: [
       {
-        path: "/registreren",
+        path: "registreren",
         component: () =>
           import(/* webpackMode: "lazy" */ "../views/v1/Empty.vue"),
+        meta: {
+          isSetup: true,
+        },
         children: [
           {
             path: "setup/1",
             name: "RegistrerenSetup1",
-            component: () => import("../views/v1/registreren/setup/1.vue"),
-            meta: {
-              isSetup: true,
-            },
+            component: () =>
+              import(
+                /* webpackMode: "lazy" */ "../views/v1/registreren/setup/1.vue"
+              ),
           },
           {
             path: "setup/student/2",
@@ -60,9 +63,6 @@ const routes = [
               import(
                 /* webpackMode: "lazy" */ "../views/v1/registreren/setup/student/2.vue"
               ),
-            meta: {
-              isSetup: true,
-            },
           },
           {
             path: "setup/student/3",
@@ -71,14 +71,11 @@ const routes = [
               import(
                 /* webpackMode: "lazy" */ "../views/v1/registreren/setup/student/3.vue"
               ),
-            meta: {
-              isSetup: true,
-            },
           },
         ],
       },
       {
-        path: "/gebruiker",
+        path: "gebruiker",
         component: () =>
           import(/* webpackMode: "lazy" */ "../views/v1/Empty.vue"),
         children: [
@@ -117,7 +114,30 @@ const routes = [
           },
         ],
       },
-
+      {
+        path: "beheer",
+        component: () =>
+          import(/* webpackMode: "lazy" */ "../views/v1/Empty.vue"),
+        children: [
+          {
+            path: "rbac",
+            component: () =>
+              import(
+                /* webpackMode: "lazy" */ "../views/v1/beheer/rbac/RBACSkeleton.vue"
+              ),
+            children: [
+              {
+                path: "",
+                name: "RBACDashboard",
+                component: () =>
+                  import(
+                    /* webpackMode: "lazy" */ "../views/v1/beheer/rbac/Dashboard.vue"
+                  ),
+              },
+            ],
+          },
+        ],
+      },
       {
         path: "",
         name: "Dashboard",

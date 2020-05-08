@@ -9,7 +9,7 @@
             <div id="dashboardContainer" class="container">
                 <div class="row justify-content-around">
                     <div class="col-md-4 mt-3">
-                        <router-link class="text-decoration-none" :to="{ name: 'Instellingen' }" v-if="getGebruiker.setup_afgerond">
+                        <router-link class="text-decoration-none" :to="{ name: 'Gebruikers' }">
                             <div class="panel">
                                 <div class="panel-body dashboardPanel">
                                     <div class="text-center dashboardPanelContent">
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="col-md-4 mt-3">
-                        <a href="" class="text-decoration-none">
+                        <router-link class="text-decoration-none" :to="{ name: 'RBACDashboard' }">
                             <div class="panel">
                                 <div class="panel-body dashboardPanel">
                                     <div class="text-center dashboardPanelContent">
@@ -45,7 +45,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
             </div>
