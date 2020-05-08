@@ -35,9 +35,12 @@
 
         <aside id="is-sidebar" v-if="getGebruiker.setup_afgerond">
             <latte-bottom-nav is-side class="bottom-nav-dark" id="app-sidebar">
-                <latte-ripple as="a" class="btn btn-action w-100">
-                    <i class="mdi mdi-home"></i><span>Home</span>
-                </latte-ripple>
+                <router-link class="text-decoration-none" :to="{ name: 'Dashboard' }">
+                    <latte-ripple as="div" class="btn btn-action w-100">
+                        <font-awesome-icon icon="home" />
+                        <span>Dashboard</span>
+                    </latte-ripple>
+                </router-link>
             </latte-bottom-nav>
         </aside>
 

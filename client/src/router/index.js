@@ -41,76 +41,88 @@ const routes = [
     },
     children: [
       {
-        path: "registreren/setup/1",
-        name: "RegistrerenSetup1",
+        path: "/registreren",
         component: () =>
-          import(
-            /* webpackMode: "lazy" */ "../views/v1/registreren/setup/1.vue"
-          ),
-        meta: {
-          isSetup: true,
-        },
+          import(/* webpackMode: "lazy" */ "../views/v1/Empty.vue"),
+        children: [
+          {
+            path: "setup/1",
+            name: "RegistrerenSetup1",
+            component: () => import("../views/v1/registreren/setup/1.vue"),
+            meta: {
+              isSetup: true,
+            },
+          },
+          {
+            path: "setup/student/2",
+            name: "RegistrerenSetupStudent2",
+            component: () =>
+              import(
+                /* webpackMode: "lazy" */ "../views/v1/registreren/setup/student/2.vue"
+              ),
+            meta: {
+              isSetup: true,
+            },
+          },
+          {
+            path: "setup/student/3",
+            name: "RegistrerenSetupStudent3",
+            component: () =>
+              import(
+                /* webpackMode: "lazy" */ "../views/v1/registreren/setup/student/3.vue"
+              ),
+            meta: {
+              isSetup: true,
+            },
+          },
+        ],
       },
       {
-        path: "registreren/setup/student/2",
-        name: "RegistrerenSetupStudent2",
+        path: "/gebruiker",
         component: () =>
-          import(
-            /* webpackMode: "lazy" */ "../views/v1/registreren/setup/student/2.vue"
-          ),
-        meta: {
-          isSetup: true,
-        },
+          import(/* webpackMode: "lazy" */ "../views/v1/Empty.vue"),
+        children: [
+          {
+            path: "instellingen",
+            component: () =>
+              import(
+                /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/InstellingenSkeleton.vue"
+              ),
+            children: [
+              {
+                path: "algemeen",
+                name: "Instellingen",
+                component: () =>
+                  import(
+                    /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/Algemeen.vue"
+                  ),
+              },
+              {
+                path: "e-mailadres",
+                name: "Instellingen-E-mailadres",
+                component: () =>
+                  import(
+                    /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/E-mailadres.vue"
+                  ),
+              },
+              {
+                path: "wachtwoord",
+                name: "Instellingen-Wachtwoord",
+                component: () =>
+                  import(
+                    /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/Wachtwoord.vue"
+                  ),
+              },
+            ],
+          },
+        ],
       },
-      {
-        path: "registreren/setup/student/3",
-        name: "RegistrerenSetupStudent3",
-        component: () =>
-          import(
-            /* webpackMode: "lazy" */ "../views/v1/registreren/setup/student/3.vue"
-          ),
-        meta: {
-          isSetup: true,
-        },
-      },
+
       {
         path: "",
         name: "Dashboard",
         component: () =>
           import(/* webpackMode: "lazy" */ "../views/v1/Dashboard.vue"),
-      },
-      {
-        path: "gebruiker/instellingen",
-        component: () =>
-          import(
-            /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/InstellingenSkeleton.vue"
-          ),
-        children: [
-          {
-            path: "algemeen",
-            name: "Instellingen",
-            component: () =>
-              import(
-                /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/Algemeen.vue"
-              ),
-          },
-          {
-            path: "e-mailadres",
-            name: "Instellingen-E-mailadres",
-            component: () =>
-              import(
-                /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/E-mailadres.vue"
-              ),
-          },
-          {
-            path: "wachtwoord",
-            name: "Instellingen-Wachtwoord",
-            component: () =>
-              import(
-                /* webpackMode: "lazy" */ "../views/v1/gebruiker/instellingen/Wachtwoord.vue"
-              ),
-          },
-        ],
       },
     ],
   },
