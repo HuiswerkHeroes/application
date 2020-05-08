@@ -6,7 +6,7 @@
 <template>
     <div>
         <div>
-            <div id="dashboardContainer" class="container">
+            <div id="dashboardContainer" class="container pt-5">
                 <div class="row justify-content-around">
                     <div class="col-md-4 mt-3">
                         <router-link class="text-decoration-none" :to="{ name: 'Gebruikers' }">

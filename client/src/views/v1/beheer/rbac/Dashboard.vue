@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row justify-content-around">
                 <div class="col-md-4 mt-3">
-                    <router-link class="text-decoration-none" :to="{ name: 'RBACDashboard' }">
+                    <router-link class="text-decoration-none" :to="{ name: 'RBACRollenIndex' }">
                         <div class="panel">
                             <div class="panel-body dashboardPanel">
                                 <div class="text-center dashboardPanelContent">
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="col-md-4 mt-3">
-                    <router-link class="text-decoration-none" :to="{ name: 'RBACDashboard' }">
+                    <router-link class="text-decoration-none" :to="{ name: 'RBACPermissiesIndex' }">
                         <div class="panel">
                             <div class="panel-body dashboardPanel">
                                 <div class="text-center dashboardPanelContent">
