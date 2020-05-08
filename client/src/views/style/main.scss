@@ -3,7 +3,10 @@
  * Dit bestand is aangemaakt door Tygo Egmond (tygoegmond.nl)
  */
 
+@import '~typeface-roboto/index.css';
+
 body {
+  font-family: 'Roboto', sans-serif;
   background: hsl(213.33deg, 36%, 95%);
   margin-top: 60px;
 }
@@ -21,7 +24,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 100000;
 }
 
 #app-sidebar {
@@ -33,7 +36,7 @@ body {
   background: rgb(25,26,28);
   box-shadow: 0 5px 5px -3px rgba(127,127,127,0.05),0px 8px 10px 1px rgba(127,127,127,0.035),0px 3px 14px 2px rgba(127,127,127,0.06);
   display: block;
-  z-index: 500;
+  z-index: 50000;
   overflow-y: auto;
 }
 
