@@ -2,11 +2,11 @@
 <project version="4">
   <component name="dataSourceStorageLocal">
     <data-source name="MariaDB - rotary_homeworkheroes@localhost" uuid="c1088843-8062-4aa7-aa7c-8f9c36a9d0ad">
-      <database-info product="MariaDB" version="10.4.11-MariaDB" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="2.6.0" dbms="MARIADB" exact-version="10.4.11" exact-driver-version="2.6">
+      <database-info product="MySQL" version="5.7.28" jdbc-version="4.2" driver-name="MariaDB Connector/J" driver-version="2.6.0" dbms="MYSQL" exact-version="5.7.28" exact-driver-version="2.6">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
       <secret-storage>master_key</secret-storage>
       <user-name>root</user-name>
       <schema-mapping>

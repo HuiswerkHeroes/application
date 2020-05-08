@@ -21,19 +21,19 @@ class AuthMiddleware
         // No token
         if (!$token) {
             return response()->json([
-                'error' => 'Authorization token not provided.'
+                'error' => 'U bent uitgelogd, herlaad de pagina. (No Token)'
             ], 401);
         }
 
         try {
-            $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS256']);
+            $credentials = JWT::decode($token, env('JWT_SECRET'), ['HS512']);
         } catch (ExpiredException $e) {
             return response()->json([
-                'error' => 'U bent uitgelogd, herlaad de pagina.'
+                'error' => 'U bent uitgelogd, herlaad de pagina. (Expired Token)'
             ], 401);
         } catch (Exception $e) {
             return response()->json([
-                'error' => 'Invalid authorization token.'
+                'error' => 'U bent uitgelogd, herlaad de pagina. (Invalid Authorization Token)'
             ], 401);
         }
 

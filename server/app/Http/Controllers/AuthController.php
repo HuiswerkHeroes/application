@@ -30,7 +30,7 @@ class AuthController extends Controller
             'exp' => time() + 60 * 60 // Expiration time
         ];
 
-        return JWT::encode($payload, env('JWT_SECRET'));
+        return JWT::encode($payload, env('JWT_SECRET'), 'HS512');
     }
 
     /**

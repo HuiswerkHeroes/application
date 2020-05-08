@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Gebruiker;
 use App\GebruikerType;
 use App\Http\Controllers\Controller;
 use App\Opleiding;
+use App\SchoolHoofdvestiging;
 use App\SchoolLocatie;
 use Closure;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -78,6 +79,11 @@ class SetupController extends Controller
                     ->orWhere('adres', 'LIKE', '%'.$request->get('q').'%')
                     ->orWhere('plaatsnaam', 'LIKE', '%'.$request->get('q').'%');
             })->limit(5)->get();
+
+        if ($scholen->count() === 0) {
+            $scholen = SchoolHoofdvestiging::where('naam', 'LIKE', '%'.$request->get('q').'%')
+                ->with('locaties')->get()->pluck('locaties')->flatten();
+        }
 
         return response()->json([
             'scholen' => $scholen
@@ -152,16 +158,16 @@ class SetupController extends Controller
             return response()->json(['error'=> $validator->errors()->first() ], 422);
         }
 
-        try {
-            Opleiding::where('id', $request->get('opleidingId'))->where('actief', true)->firstOrFail();
-        } catch (ModelNotFoundException $ex) {
-            return response()->json(['error'=> 'Er is geen actieve opleiding met de opgegeven opleidingId' ], 422);
-        }
-
         if ($request->auth->gebruiker_type_id === null) {
             return response()->json(['error'=> 'Deze actie is niet mogelijk op dit moment.' ], 422);
         } else if ($request->auth->school_locatie_id === null) {
             return response()->json(['error'=> 'Deze actie is niet mogelijk op dit moment.' ], 422);
+        }
+
+        try {
+            Opleiding::where('id', $request->get('opleidingId'))->where('actief', true)->where('school_locatie_id', $request->auth->school_locatie_id)->firstOrFail();
+        } catch (ModelNotFoundException $ex) {
+            return response()->json(['error'=> 'Er is geen actieve opleiding met de opgegeven opleidingId.' ], 422);
         }
 
         $gebruiker = $request->auth;
