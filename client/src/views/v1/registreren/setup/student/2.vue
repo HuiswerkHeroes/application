@@ -65,6 +65,13 @@
     methods: {
         async handleSearch() {
             if (this.zoekString.length < 3) {
+                if (call) {
+                    call.cancel();
+                }
+
+                this.scholen = [];
+                this.laden = false;
+                
                 return;
             }
 
