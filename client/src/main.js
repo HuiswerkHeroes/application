@@ -20,9 +20,14 @@ Vue.use(LatteUI);
 Vue.config.productionTip = false;
 
 axios.interceptors.response.use(null, function (err) {
+  if (axios.isCancel(err)) {
+    return Promise.reject(err);
+  }
+
   if (err.response.status === 401) {
     store.dispatch("auth/probeerUitloggen");
   }
+
   return Promise.reject(err);
 });
 

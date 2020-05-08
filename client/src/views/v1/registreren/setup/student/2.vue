@@ -16,6 +16,9 @@
                                     </div>
 
                                     <div class="list">
+                                        <div class="text-center" v-if="this.laden">
+                                            <span class="spinner"></span>
+                                        </div>
                                         <latte-ripple v-for="school in scholen" :key="school.id" as="a" class="list-item link-d" @click="handleSchool(school.id)">
                                             <div class="list-item-caption">
                                                 <strong>{{school.naam}}</strong>
@@ -25,9 +28,6 @@
                                                 </span>
                                             </div>
                                         </latte-ripple>
-                                        <div v-if="this.laden" class="loading-overlay">
-                                            <span class="spinner"></span>
-                                        </div>
                                     </div>
                                 </div>
 
@@ -84,7 +84,6 @@
 
                 this.scholen = res.data.scholen;
             } catch (err) {
-                console.log(axios.isCancel(err));
                 if (axios.isCancel(err)) {
                     return;
                 } else if (!err.response) {
