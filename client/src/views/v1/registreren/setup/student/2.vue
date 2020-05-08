@@ -34,6 +34,10 @@
                                 <div class="panel-footer">
                                     <router-link class="btn btn-soft btn-primary" :to="{ name: 'RegistrerenSetup1' }">Vorige</router-link>
                                 </div>
+
+                                <div v-if="this.ladenSubmit" class="loading-overlay">
+                                    <span class="spinner"></span>
+                                </div>
                             </div>
                         </form>
 
@@ -59,6 +63,7 @@
             zoekString: '',
             scholen: [],
             laden: false,
+            ladenSubmit: false,
             fout: ''
         };
     },
@@ -71,7 +76,7 @@
 
                 this.scholen = [];
                 this.laden = false;
-                
+
                 return;
             }
 
@@ -106,11 +111,11 @@
             this.laden = false;
         },
         async handleSchool(id) {
-            if (this.laden === true) {
+            if (this.ladenSubmit === true || this.laden === true) {
                 return;
             }
 
-            this.laden = true;
+            this.ladenSubmit = true;
 
             try {
                 await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/school', {
@@ -129,7 +134,7 @@
                 }
             }
 
-            this.laden = false;
+            this.ladenSubmit = false;
         }
     }
 };
