@@ -12,7 +12,7 @@
                                     <h5 class="text-center ">Op welke opleiding / niveau zit je?</h5>
 
                                     <div class="list">
-                                        <span v-if="this.laden" class="spinner"></span>
+                                        <span v-if="this.dataLaden" class="spinner"></span>
 
                                         <latte-ripple v-for="opleiding in filteredOpleidingen" :key="opleiding.id" as="a" class="list-item link-d" @click="handleOpleiding(opleiding.id)">
                                             <div class="list-item-caption">
@@ -24,6 +24,10 @@
 
                                 <div class="panel-footer">
                                     <router-link class="btn btn-soft btn-primary" :to="{ name: 'RegistrerenSetupStudent2' }">Vorige</router-link>
+                                </div>
+
+                                <div v-if="this.laden" class="loading-overlay">
+                                    <span class="spinner"></span>
                                 </div>
                             </div>
                         </form>
@@ -49,6 +53,7 @@
                 zoekString: '',
                 opleidingen: [],
                 filteredOpleidingen: [],
+                dataLaden: false,
                 laden: false,
                 fout: ''
             };
@@ -56,7 +61,7 @@
         methods: {
             ...mapActions("auth", { probeerAuthenticeren: "probeerAuthenticeren" }),
             async handleOpleiding(id) {
-                if (this.laden === true) {
+                if (this.laden === true || this.dataLaden === true) {
                     return;
                 }
 
@@ -98,7 +103,7 @@
         },
         async mounted() {
             this.opleidingen = [];
-            this.laden = true;
+            this.dataLaden = true;
 
             try {
                 const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/opleidingen');
@@ -115,7 +120,7 @@
                 }
             }
 
-            this.laden = false;
+            this.dataLaden = false;
         }
     };
 </script>
