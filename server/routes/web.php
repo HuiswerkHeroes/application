@@ -41,5 +41,11 @@ Route::group(['prefix' => 'api'], function () {
             Route::get('', 'Gebruiker\GebruikerController@getCurrentGebruiker');
             Route::get('types', 'Gebruiker\TypeController');
         });
+
+        Route::group(['prefix' => 'beheer'], function () {
+            Route::group(['prefix' => 'rbac'], function () {
+                Route::get('rollen', 'Beheer\RBACController@getRollen');
+            });
+        });
     });
 });
