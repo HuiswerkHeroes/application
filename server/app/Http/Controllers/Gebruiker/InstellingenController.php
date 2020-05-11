@@ -9,6 +9,7 @@ namespace App\Http\Controllers\Gebruiker;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,7 +17,7 @@ class InstellingenController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api');
     }
 
     public function veranderWachtwoord(Request $request) {
@@ -29,13 +30,13 @@ class InstellingenController extends Controller
             return response()->json(['error'=> $validator->errors()->first() ], 422);
         }
 
-        $gebruiker = $request->auth;
+        $gebruiker = Auth::user();
 
-        if (!Hash::check($request->get('oudWachtwoord'), $gebruiker->wachtwoord)) {
+        if (!Hash::check($request->get('oudWachtwoord'), $gebruiker->password)) {
             return response()->json(['error'=> 'Je oude wachtwoord klopt niet.' ], 403);
         }
 
-       $gebruiker->wachtwoord = Hash::make($request->get('nieuwWachtwoord'));
+       $gebruiker->password = Hash::make($request->get('nieuwWachtwoord'));
 
         if ($gebruiker->save()) {
             return response()->json(['status' => 'success', 'message' => 'Het wachtwoord is gewijzigd.' ], 200);

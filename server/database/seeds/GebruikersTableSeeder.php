@@ -5,7 +5,7 @@
  */
 
 use Illuminate\Database\Seeder;
-use App\Gebruiker;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 
 class GebruikersTableSeeder extends Seeder
@@ -17,11 +17,11 @@ class GebruikersTableSeeder extends Seeder
      */
     public function run()
     {
-        Gebruiker::create([
+        User::create([
             'email' => 'tygo.egmond@icloud.com',
             'voornaam' => 'Tygo',
             'achternaam' => 'Egmond',
-            'wachtwoord' => Hash::make('123456'),
+            'password' => Hash::make('123456'),
         ]);
     }
 }

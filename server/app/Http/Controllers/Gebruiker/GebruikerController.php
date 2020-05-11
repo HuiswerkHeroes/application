@@ -6,16 +6,15 @@
 
 namespace App\Http\Controllers\Gebruiker;
 
-
-use App\Gebruiker;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GebruikerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api');
     }
 
     /**
@@ -25,14 +24,8 @@ class GebruikerController extends Controller
      * @noinspection PhpUndefinedFieldInspection
      */
     public function getCurrentGebruiker(Request $request) {
-        $gebruiker = Gebruiker::where('id', $request->auth->id)
-            ->with('gebruikerType')
-            ->with('schoolLocatie')
-            ->with('opleiding')
-            ->firstOrFail();
-
         return response()->json([
-            'gebruiker' => $gebruiker,
+            'gebruiker' => Auth::user(),
         ], 200);
     }
 }

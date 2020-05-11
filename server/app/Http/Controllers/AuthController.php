@@ -7,32 +7,16 @@
 namespace App\Http\Controllers;
 
 
-use App\Gebruiker;
-use Firebase\JWT\JWT;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-
-    /**
-     * @param Gebruiker $gebruiker
-     * @return string
-     */
-    protected function jwt(Gebruiker $gebruiker) {
-        $payload = [
-            'iss' => 'homeworkheroes-api', // Issuer of the token
-            'sub' => $gebruiker->id, // Subject of the token
-            'iat' => time(), // Time when the token was issued
-            'exp' => time() + 60 * 60 // Expiration time
-        ];
-
-        return JWT::encode($payload, env('JWT_SECRET'), 'HS512');
-    }
-
     /**
      * @param Request $request
      * @return JsonResponse
@@ -47,19 +31,12 @@ class AuthController extends Controller
             return response()->json(['error'=> $validator->errors()->first() ], 422);
         }
 
-        $gebruiker = Gebruiker::where('email', $request->input('email'))->first();
-
-        // Check of de gebruiker bestaat
-        if (!$gebruiker) {
+        if (Auth::attempt(['email' => $request->input('email'), 'password' => $request->input('wachtwoord')])) {
+            $token = Auth::user()->createToken('token');
+            $expiresIn = $token->token->expires_at;
             return response()->json([
-                'error' => 'E-mailadres komt niet overeen met het wachtwoord'
-            ], 400);
-        }
-
-        // Verifieer het wachtwoord en genereer token
-        if (Hash::check($request->input('wachtwoord'), $gebruiker->wachtwoord)) {
-            return response()->json([
-                'token' => $this->jwt($gebruiker)
+                'token' => $token->accessToken,
+                'expiresIn' => $expiresIn->diffInSeconds(Carbon::now())
             ], 200);
         } else {
             return response()->json([
@@ -85,22 +62,22 @@ class AuthController extends Controller
         }
 
         // Check of er al iemand bestaat met dat wachtwoord
-        $gebruiker = Gebruiker::where('email', $request->input('email'))->first();
+        $gebruiker = User::where('email', $request->input('email'))->first();
         if ($gebruiker) {
             return response()->json([
                 'error' => 'Er bestaat al een gebruiker met het opgegeven e-mailadres.'
             ], 400);
         }
 
-        $gebruiker = Gebruiker::create([
+        $gebruiker = User::create([
             'voornaam' => ucfirst($request->input('voornaam')),
             'achternaam' => ucfirst($request->input('achternaam')),
             'email' => $request->input('email'),
-            'wachtwoord' => Hash::make($request->input('wachtwoord')),
+            'password' => Hash::make($request->input('wachtwoord')),
         ]);
 
         return response()->json([
-            'token' => $this->jwt($gebruiker)
+            'token' => $gebruiker->createToken('token')->accessToken
         ], 200);
     }
 }

@@ -14,7 +14,8 @@ class RBACController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:api');
+
 //      TODO: Zorg ervoor dat dit alleen toegankelijk is met een bapaalde permissie
     }
 

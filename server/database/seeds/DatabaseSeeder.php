@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SchoolHoofdvestigingSeeder::class);
         $this->call(SchoolLocatieSeeder::class);
         $this->call(OpleidingSeeder::class);
+        $this->call(RBACSeeder::class);
 //        Model::reguard();
     }
 }
