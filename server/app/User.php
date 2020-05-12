@@ -17,11 +17,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'voornaam', 'achternaam', 'email', 'password',
+        'email', 'voornaam', 'achternaam', 'password', 'setup_afgerond', 'gebruiker_type_id', 'school_locatie_id', 'opleiding_id', 'vakken',
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
@@ -30,11 +30,25 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @var string[]
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'setup_afgerond' => 'boolean',
     ];
+
+    public function gebruikerType()
+    {
+        return $this->hasOne('App\GebruikerType', 'id', 'gebruiker_type_id');
+    }
+
+    public function schoolLocatie()
+    {
+        return $this->hasOne('App\SchoolLocatie', 'id', 'school_locatie_id');
+    }
+
+    public function opleiding()
+    {
+        return $this->hasOne('App\Opleiding', 'id', 'opleiding_id');
+    }
 }
