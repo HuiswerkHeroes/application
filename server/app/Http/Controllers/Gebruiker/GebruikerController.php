@@ -7,7 +7,7 @@
 namespace App\Http\Controllers\Gebruiker;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class GebruikerController extends Controller
@@ -18,14 +18,19 @@ class GebruikerController extends Controller
     }
 
     /**
-     * @param Request $request
      * @return mixed
      * @noinspection PhpUnused
      * @noinspection PhpUndefinedFieldInspection
      */
-    public function getCurrentGebruiker(Request $request) {
+    public function getCurrentGebruiker() {
+        $gebruiker = User::where('id', Auth::id())
+            ->with('gebruikerType')
+            ->with('schoolLocatie')
+            ->with('opleiding')
+            ->firstOrFail();
+
         return response()->json([
-            'gebruiker' => Auth::user(),
+            'gebruiker' => $gebruiker,
         ], 200);
     }
 }
