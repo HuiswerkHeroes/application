@@ -6,11 +6,26 @@
 <template>
     <div>
         <div class="container">
+            <div class="row my-3">
+                <div class="col">
+                    <div class="panel">
+                        <nav class="nav nav-breadcrumb m-3">
+                            <router-link class="nav-link" :to="{ name: 'Dashboard' }">
+                                <font-awesome-icon icon="home" />
+                            </router-link>
+                            <router-link class="nav-link" :to="{ name: 'RBACDashboard' }">Role-based Access Control</router-link>
+                            <router-link class="nav-link" :to="{ name: 'RBACRollenIndex' }">Rollen</router-link>
+                            <a class="nav-link is-active">{{ rol.display_name || 'Laden...'}}</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col">
                     <latte-tab-container class="panel">
                         <div class="panel-header">
-                            <span class="panel-title">Rol: </span>
+                            <span class="panel-title">Rol: {{ rol.display_name }} ({{ rol.name }})</span>
                             <a href="" class="btn btn-outline btn-primary ml-auto">
                                 <font-awesome-icon icon="pen" class="mr-2" />
                                 <span>Rol wijzigen</span>
@@ -24,26 +39,26 @@
                                 <div class="col-md-5">
                                     <div class="form-group">
                                         <label>Weergavenaam</label>
-                                        <input type="text" class="form-control" value="" disabled/>
+                                        <input type="text" class="form-control" :value="this.rol.display_name" disabled/>
                                     </div>
                                     <div class="form-group">
                                         <label>Systeemnaam</label>
-                                        <input type="text" class="form-control" value="" disabled/>
+                                        <input type="text" class="form-control" :value="this.rol.name" disabled/>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="description">Beschrijving</label>
-                                        <textarea class="form-control" id="description" cols="30" rows="3" disabled></textarea>
+                                        <textarea class="form-control" id="description" cols="30" rows="3" :value="this.rol.description || 'Geen beschrijving.'" disabled></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label>Gemaakt op</label>
-                                        <input type="text" class="form-control" value="" disabled/>
+                                        <input type="text" class="form-control" :value="this.rol.created_at" disabled/>
                                     </div>
                                     <div class="form-group">
                                         <label>Laatst veranderd op</label>
-                                        <input type="text" class="form-control" value="" disabled/>
+                                        <input type="text" class="form-control" :value="this.rol.updated_at" disabled/>
                                     </div>
                                 </div>
                             </div>
@@ -66,15 +81,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr v-for="permissie in rol.permissions" :key="permissie.id">
                                         <td style="width: auto;">
                                             <div class="column-content">
-
+                                                {{ permissie.display_name }}
                                             </div>
                                         </td>
                                         <td style="width: auto;">
                                             <div class="column-content">
-
+                                                {{ permissie.name }}
                                             </div>
                                         </td>
                                     </tr>
@@ -93,11 +108,13 @@
                                 </div>
 
                                 <div class="notice notice-info mb-3">
-                                    <p>De rol wordt verwijderd bij alle gebruikers die deze rol hebben. <br /> Hierdoor verliezen ze alle permissies die bij deze rol horen.</p>
+                                    <p>Deze rol wordt verwijderd bij alle gebruikers die deze rol hebben. <br /> Hierdoor verliezen ze alle permissies die bij deze rol horen.</p>
                                 </div>
 
+                                <nav class="nav nav-breadcrumb"><a class="nav-link">Some school</a><a class="nav-link">Learning</a><span class="nav-link is-active">Webdevelopment</span></nav>
+
                                 <div class="form-group">
-                                    <label for="confirm">Voer hier de systeemnaam van de rol in (--naam--) voor bevestiging om deze rol te verwijderen</label>
+                                    <label for="confirm">Voer hier de systeemnaam van de rol in ({{rol.name}}) voor bevestiging om deze rol te verwijderen</label>
                                     <input type="text" class="form-control" name="confirm" id="confirm">
                                 </div>
 
