@@ -10,4 +10,12 @@ use Laratrust\Models\LaratrustPermission;
 class Permission extends LaratrustPermission
 {
     public $guarded = [];
+
+    /**
+     * @var string[]
+     */
+    protected $casts = [
+        'created_at'  => 'datetime:d-m-Y H:00',
+        'updated_at' => 'datetime:d-m-Y H:00',
+    ];
 }
