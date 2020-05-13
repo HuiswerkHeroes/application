@@ -56,15 +56,15 @@ class Handler extends ExceptionHandler
     {
         if ($e instanceof MethodNotAllowedHttpException) {
             return response()->json([
-                'message' => '404: Not Found'
+                'error' => '404: Not Found'
             ], 404);
         } else if ($e instanceof ModelNotFoundException) {
             return response()->json([
-                'message' => '404: Resource not found'
+                'error' => '404: Not found'
             ], 404);
         } else if ($e instanceof HttpException) {
             return response()->json([
-                'message' => '404: Not Found'
+                'error' => $e->getMessage() ?? '404: Not Found'
             ], 404);
         }
         return parent::render($request, $e);
