@@ -6,6 +6,18 @@
 <template>
     <div>
         <div class="container">
+            <div class="row my-3">
+                <div class="col">
+                    <div class="panel">
+                        <nav class="nav nav-breadcrumb m-3">
+                            <router-link class="nav-link" :to="{ name: 'Dashboard' }">
+                                <font-awesome-icon icon="home" />
+                            </router-link>
+                            <a class="nav-link is-active">Role-based Access Control</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
             <div class="row justify-content-around">
                 <div class="col-md-4 mt-3">
                     <router-link class="text-decoration-none" :to="{ name: 'RBACRollenIndex' }">
