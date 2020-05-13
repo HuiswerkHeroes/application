@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <form>
+                            <form >
                                 <div class="form-group">
                                     <label for="display_name">Weergavenaam</label>
                                     <input type="text" class="form-control" id="display_name" name="display_name" required/>
@@ -49,22 +49,9 @@
 
                                 <div class="form-group">
                                     <label>Permissies</label>
-
-                                    <label class="d-flex">
-                                        <input type="checkbox" v-model="checkbox" value="1" class="checkbox mr-3"/>
-                                        <span>1</span>
-                                    </label>
-                                    <label class="d-flex">
-                                        <input type="checkbox" v-model="checkbox" value="2" class="checkbox mr-3"/>
-                                        <span>2</span>
-                                    </label>
-                                    <label class="d-flex">
-                                        <input type="checkbox" v-model="checkbox" value="3" class="checkbox mr-3"/>
-                                        <span>3</span>
-                                    </label>
-                                    <label class="d-flex">
-                                        <input type="checkbox" v-model="checkbox" value="4" class="checkbox mr-3"/>
-                                        <span>4</span>
+                                    <label class="d-flex" v-for="permissie in permissies" :key="permissie.id">
+                                        <input type="checkbox" v-model="selected" :value="permissie.id" class="checkbox mr-3"/>
+                                        <span>{{ permissie.display_name }}</span>
                                     </label>
                                 </div>
 
@@ -102,7 +89,8 @@
         data() {
             return {
                 fout: '',
-                checkbox: [],
+                selected: [],
+                permissies: [],
                 preload: true,
                 failed: false,
             };
@@ -113,8 +101,8 @@
                     return;
                 }
                 try {
-                    const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/gebrsuiker/types');
-                    this.types = res.data.types;
+                    const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/permissies');
+                    this.permissies = res.data.permissies;
                     this.preload = false;
                 } catch (err) {
                     this.preload = false;
