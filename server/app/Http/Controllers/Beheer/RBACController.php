@@ -8,15 +8,13 @@ namespace App\Http\Controllers\Beheer;
 
 
 use App\Http\Controllers\Controller;
-use Spatie\Permission\Models\Role;
+use App\Role;
 
 class RBACController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
-
-//      TODO: Zorg ervoor dat dit alleen toegankelijk is met een bapaalde permissie
+        $this->middleware(['auth:api', 'permission:beheer-rbac']);
     }
 
     public function getRollen()

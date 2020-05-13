@@ -1,5 +1,9 @@
 <?php
 
+use App\Permission;
+use App\Role;
+use App\User;
+
 /**
  * Copyright (c) 2020.
  * Dit bestand is aangemaakt door Tygo Egmond (tygoegmond.nl)
@@ -17,11 +21,29 @@ class RBACSeeder extends \Illuminate\Database\Seeder
       /*
        * Maak Rollen aan
        * */
-//        Role::create(['name' => 'Systeembeheerder']);
+        $sbRol = Role::create([
+                    'name' => 'systeembeheerder',
+                    'display_name' => 'Systeembeheerder',
+                ]);
+
 
       /*
        * Maak Permissies aan
        * */
-//        Permission::create(['name' => 'beheer-rbac']);
+        $beheerRbac = Permission::create([
+            'name' => 'beheer-rbac',
+            'display_name' => 'Beheer - RBAC',
+        ]);
+
+        /*
+         * Link Permissies aan Rollen
+         * */
+        $sbRol->attachPermission($beheerRbac);
+
+        /*
+         * Link Gebruiker aan Rol
+         * */
+        $user = User::where('id', 1)->firstOrFail();
+        $user->attachRole($sbRol);
     }
 }
