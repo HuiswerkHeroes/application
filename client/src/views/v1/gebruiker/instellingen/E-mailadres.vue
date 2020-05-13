@@ -21,8 +21,8 @@
         </form>
 
         <div class="loading-overlay">
-            <div class="d-block text-center m-3">
-                <span class="text-warning">Niet functioneel.</span>
+            <div class="d-block text-center m-3 text-error fa-2x">
+                <font-awesome-icon icon="times" />
             </div>
         </div>
     </div>
