@@ -41,6 +41,10 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('', 'Beheer\RBACController@getRollen');
                 Route::get('{id}', 'Beheer\RBACController@getRol');
             });
+
+            Route::group(['prefix' => 'permissies'], function () {
+                Route::get('', 'Beheer\RBACController@getPermissies');
+            });
         });
     });
 });

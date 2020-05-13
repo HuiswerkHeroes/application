@@ -8,6 +8,7 @@ namespace App\Http\Controllers\Beheer;
 
 
 use App\Http\Controllers\Controller;
+use App\Permission;
 use App\Role;
 
 class RBACController extends Controller
@@ -28,6 +29,13 @@ class RBACController extends Controller
     {
         return response()->json([
             'rol' => Role::where('id', $id)->with('permissions')->firstOrfail(),
+        ], 200);
+    }
+
+    public function getPermissies()
+    {
+        return response()->json([
+            'permissies' => Permission::all(),
         ], 200);
     }
 }
