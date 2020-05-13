@@ -16,6 +16,20 @@
         </div>
 
         <div class="container my-5">
+            <div class="row my-3">
+                <div class="col">
+                    <div class="panel">
+                        <nav class="nav nav-breadcrumb m-3">
+                            <router-link class="nav-link" :to="{ name: 'Dashboard' }">
+                                <font-awesome-icon icon="home" />
+                            </router-link>
+                            <a class="nav-link">{{ getGebruiker.voornaam }} {{ getGebruiker.achternaam }}</a>
+                            <a class="nav-link is-active">Instellingen</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-4">
                     <div class="panel">
@@ -37,3 +51,12 @@
         </div>
     </div>
 </template>
+
+<script>
+    import {mapGetters} from 'vuex';
+
+    export default {
+        name: 'Instellingen',
+        computed: mapGetters('auth', ['getGebruiker'])
+    };
+</script>
