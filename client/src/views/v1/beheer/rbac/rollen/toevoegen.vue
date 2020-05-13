@@ -31,7 +31,7 @@
                         </div>
 
                         <div class="panel-body">
-                            <form >
+                            <form v-on:submit="handleSubmit">
                                 <div class="form-group">
                                     <label for="display_name">Weergavenaam</label>
                                     <input type="text" class="form-control" id="display_name" name="display_name" required/>
@@ -63,7 +63,7 @@
                             </form>
                         </div>
 
-                        <div class="loading-overlay" v-if="this.preload">
+                        <div class="loading-overlay" v-if="this.preload || this.laden">
                             <span class="spinner"></span>
                         </div>
 
@@ -92,6 +92,7 @@
                 selected: [],
                 permissies: [],
                 preload: true,
+                laden: false,
                 failed: false,
             };
         },
