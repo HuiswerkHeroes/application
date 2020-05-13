@@ -27,7 +27,7 @@ class RBACController extends Controller
     public function getRol($id)
     {
         return response()->json([
-            'rollen' => Role::where('id', $id)->with('permissions')->firstOrfail(),
+            'rol' => Role::where('id', $id)->with('permissions')->firstOrfail(),
         ], 200);
     }
 }
