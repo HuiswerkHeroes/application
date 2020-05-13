@@ -140,6 +140,14 @@ const routes = [
                                             ),
                                     },
                                     {
+                                        path: 'toevoegen',
+                                        name: 'RBACRollenToevoegen',
+                                        component: () =>
+                                            import(
+                                                '../views/v1/beheer/rbac/rollen/toevoegen.vue'
+                                            ),
+                                    },
+                                    {
                                         path: ':rol_id',
                                         name: 'RBACRollenView',
                                         component: () =>
