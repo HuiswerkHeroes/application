@@ -6,92 +6,134 @@
 @import '~typeface-roboto/index.css';
 
 body {
-  font-family: 'Roboto', sans-serif;
-  background: hsl(213.33deg, 36%, 95%);
-  margin-top: 60px;
+    font-family: 'Roboto', sans-serif;
+    background: hsl(213.33deg, 36%, 95%);
+    margin-top: 60px;
 }
 
 .py-10 {
-  padding-top: 60px!important;
-  padding-bottom: 60px!important;
+    padding-top: 60px!important;
+    padding-bottom: 60px!important;
 }
 
 .form-group label {
-  font-weight: bold;
+    font-weight: bold;
 }
 
 #app-header {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 2000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2000;
 }
 
 #app-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  margin-top: 60px;
-  height: calc(100% - 60px);
-  background: rgb(25,26,28);
-  box-shadow: 0 5px 5px -3px rgba(127,127,127,0.05),0px 8px 10px 1px rgba(127,127,127,0.035),0px 3px 14px 2px rgba(127,127,127,0.06);
-  display: block;
-  z-index: 2000;
-  overflow-y: auto;
+    position: fixed;
+    top: 0;
+    left: 0;
+    margin-top: 60px;
+    height: calc(100% - 60px);
+    background: rgb(25,26,28);
+    box-shadow: 0 5px 5px -3px rgba(127,127,127,0.05),0px 8px 10px 1px rgba(127,127,127,0.035),0px 3px 14px 2px rgba(127,127,127,0.06);
+    display: block;
+    z-index: 2000;
+    overflow-y: auto;
 }
 
 #main-view {
-  margin-left: 72px;
+    margin-left: 72px;
 }
 
 .loading-overlay {
-  position: absolute;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  background: hsla(0deg,0%,calc(100% + 0%),.75);
-  border-radius: inherit;
-  z-index: 1000;
+    position: absolute;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: hsla(0deg,0%,calc(100% + 0%),.75);
+    border-radius: inherit;
+    z-index: 1000;
 }
 
 .loading-overlay span {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 
 .dashboardPanelContent {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-direction: column;
-  height: 250px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    height: 250px;
 }
 
 .dashboardIcon {
-  font-size: 50px;
+    font-size: 50px;
 }
 
 .rbacIcon {
-  color: #BA8961;
+    color: #BA8961;
 }
 
 .usersIcon {
-  color: #80C1A8;
+    color: #80C1A8;
 }
 
 .rbacRoleIcon {
-  color: #7D91A7;
+    color: #7D91A7;
 }
 
 .panel {
     overflow: auto;
+}
+
+.nav.nav-breadcrumb
+{
+    flex-flow: row wrap;
+
+    .nav-link
+    {
+        min-height: 24px;
+        padding: 0;
+
+        &:hover
+        {
+            color: rgb(55, 125, 255);
+        }
+
+        &.is-active
+        {
+            color: rgb(25, 26, 28);
+            font-weight: 700;
+        }
+    }
+
+    .nav-link + .nav-link
+    {
+        margin-left: 24px;
+
+        &::before
+        {
+            display: inline-block;
+            margin: -10px 0 -6px -24px;
+            width: 24px;
+            content: "\0203A";
+            color: rgb(55, 125, 255);
+            font-size: 24px;
+            font-weight: 700;
+            line-height: 1em;
+            pointer-events: none;
+            text-align: center;
+            vertical-align: middle;
+        }
+    }
 }
