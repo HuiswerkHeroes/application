@@ -6,6 +6,19 @@
 <template>
     <div>
         <div class="container">
+            <div class="row my-3">
+                <div class="col">
+                    <div class="panel">
+                        <nav class="nav nav-breadcrumb m-3">
+                            <router-link class="nav-link" :to="{ name: 'Dashboard' }">
+                                <font-awesome-icon icon="home" />
+                            </router-link>
+                            <router-link class="nav-link" :to="{ name: 'RBACDashboard' }">Role-based Access Control</router-link>
+                            <a class="nav-link is-active">Rollen</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col">
                     <div v-if="this.fout" class="notice notice-error my-4">{{ this.fout }}</div>
