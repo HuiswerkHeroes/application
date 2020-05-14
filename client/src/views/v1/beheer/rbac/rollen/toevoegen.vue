@@ -34,17 +34,17 @@
                             <form v-on:submit="handleSubmit">
                                 <div class="form-group">
                                     <label for="display_name">Weergavenaam</label>
-                                    <input type="text" class="form-control" id="display_name" v-model="weergavenaam" placeholder="Senior Director" required/>
+                                    <input type="text" class="form-control" id="display_name" v-model="weergavenaam" placeholder="Senior Director" autocomplete="off" required/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="name">Systeemnaam</label>
-                                    <input type="text" class="form-control" id="name" v-model="systeemnaam" placeholder="senior-director" required/>
+                                    <input type="text" class="form-control" id="name" v-model="systeemnaam" placeholder="senior-director" autocomplete="off" required/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">Beschrijving</label>
-                                    <textarea class="form-control" id="description" v-model="beschrijving" cols="30" rows="5"></textarea>
+                                    <textarea class="form-control" id="description" v-model="beschrijving" cols="30" rows="5" autocomplete="off"></textarea>
                                 </div>
 
                                 <div class="form-group">
