@@ -74,4 +74,14 @@ class RBACController extends Controller
             'permissies' => Permission::all(),
         ], 200);
     }
+
+    public function deleteRol(Role $rol)
+    {
+        try {
+            $rol->delete();
+            return response()->json(['status' => 'success', 'message' => 'De rol is verwijderd.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error'=> 'Er is een onbekende fout opgetreden.' ], 500);
+        }
+    }
 }

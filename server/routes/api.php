@@ -41,6 +41,7 @@ Route::group(['prefix' => 'v1'], function () {
                 Route::get('', 'Beheer\RBACController@getRollen');
                 Route::post('', 'Beheer\RBACController@createRol');
                 Route::get('{id}', 'Beheer\RBACController@getRol');
+                Route::delete('{rol}', 'Beheer\RBACController@deleteRol');
             });
 
             Route::group(['prefix' => 'permissies'], function () {
