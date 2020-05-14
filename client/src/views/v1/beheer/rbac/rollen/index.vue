@@ -98,6 +98,12 @@
                         <div class="loading-overlay" v-if="this.laden">
                             <span class="spinner"></span>
                         </div>
+
+                        <div class="loading-overlay" v-if="this.failed">
+                            <div class="d-block text-center m-3 text-error fa-2x">
+                                <font-awesome-icon icon="times" />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -131,6 +137,9 @@
                     this.rollen = res.data.rollen;
                     this.laden = false;
                 } catch (err) {
+                    this.laden = false;
+                    this.failed = true;
+
                     await Latte.ui.notification.create({
                         title: 'Er is iets fout gegaan!',
                         message: 'Probeer het later opnieuw.'
