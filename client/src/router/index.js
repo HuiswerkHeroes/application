@@ -179,19 +179,11 @@ const routes = [
                                             ),
                                     },
                                     {
-                                        path: 'toevoegen',
-                                        name: 'RBACPermissiesToevoegen',
-                                        component: () =>
-                                            import(
-                                                '../views/v1/beheer/rbac/rollen/toevoegen.vue'
-                                            ),
-                                    },
-                                    {
                                         path: ':permissie_id',
                                         name: 'RBACPermissiesView',
                                         component: () =>
                                             import(
-                                                '../views/v1/beheer/rbac/rollen/view.vue'
+                                                '../views/v1/beheer/rbac/permissies/view.vue'
                                             ),
                                     },
                                     {

@@ -26,11 +26,6 @@
                     <div class="panel">
                         <div class="panel-header">
                             <span class="panel-title mr-auto">Permissies</span>
-
-                            <router-link class="btn btn-outline btn-primary ml-auto" :to="{ name: 'RBACPermissiesToevoegen' }">
-                                <font-awesome-icon icon="plus" class="mr-2" />
-                                <span>Permissie toevoegen</span>
-                            </router-link>
                         </div>
 
                         <div class="table-overflow" style="overflow: auto;">
