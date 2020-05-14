@@ -155,6 +155,14 @@ const routes = [
                                                 '../views/v1/beheer/rbac/rollen/view.vue'
                                             ),
                                     },
+                                    {
+                                        path: ':rol_id/bewerken',
+                                        name: 'RBACRollenBewerken',
+                                        component: () =>
+                                            import(
+                                                '../views/v1/beheer/rbac/rollen/bewerken.vue'
+                                            ),
+                                    },
                                 ],
                             },
                             {

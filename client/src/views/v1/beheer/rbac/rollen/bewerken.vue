@@ -15,7 +15,8 @@
                             </router-link>
                             <router-link class="nav-link" :to="{ name: 'RBACDashboard' }">Role-based Access Control</router-link>
                             <router-link class="nav-link" :to="{ name: 'RBACRollenIndex' }">Rollen</router-link>
-                            <a class="nav-link is-active">{{ rol.display_name || 'Laden...'}}</a>
+                            <router-link class="nav-link" :to="{ name: 'RBACRollenView', props: { rol_id: rol.id } }">{{ rol.display_name || 'Laden...'}}</router-link>
+                            <a class="nav-link is-active">Bewerken</a>
                         </nav>
                     </div>
                 </div>
@@ -27,11 +28,7 @@
 
                     <latte-tab-container class="panel">
                         <div class="panel-header">
-                            <span class="panel-title">Rol: {{ rol.display_name }} ({{ rol.name }})</span>
-                            <router-link class="btn btn-outline btn-primary ml-auto" :to="{ name: 'RBACRollenBewerken', props: { rol_id: rol.id } }">
-                                <font-awesome-icon icon="pen" class="mr-2" />
-                                <span>Rol bewerken</span>
-                            </router-link>
+                            <span class="panel-title">Rol bewerken: {{ rol.display_name }} ({{ rol.name }})</span>
                         </div>
 
                         <latte-tab-bar></latte-tab-bar>
@@ -67,65 +64,66 @@
                         </latte-tab>
 
                         <latte-tab class="table-overflow" style="overflow: auto;" label="Permissies">
-                            <table class="table table-hover m-2">
-                                <thead>
-                                <tr>
-                                    <th style="min-width: auto; width: auto;">
-                                        <div class="column-content flex-row align-items-center justify-content-start">
-                                            <span>Weergavenaam</span>
-                                        </div>
-                                    </th>
-                                    <th style="min-width: auto; width: auto;">
-                                        <div class="column-content flex-row align-items-center justify-content-start">
-                                            <span>Systeemnaam</span>
-                                        </div>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="permissie in rol.permissions" :key="permissie.id">
-                                        <td style="width: auto;">
-                                            <div class="column-content">
-                                                {{ permissie.display_name }}
-                                            </div>
-                                        </td>
-                                        <td style="width: auto;">
-                                            <div class="column-content">
-                                                {{ permissie.name }}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                            {{rol}}
+                            <form >
+                                <table class="table table-hover m-2">
+                                    <thead>
+                                        <tr>
+                                            <th style="min-width: auto; width: auto;">
+                                                <div class="column-content flex-row align-items-center justify-content-start">
+                                                    <span>Weergavenaam</span>
+                                                </div>
+                                            </th>
+                                            <th style="min-width: auto; width: auto;">
+                                                <div class="column-content flex-row align-items-center justify-content-start">
+                                                    <span>Systeemnaam</span>
+                                                </div>
+                                            </th>
+                                            <th style="min-width: auto; width: auto;">
+                                                <div class="column-content flex-row align-items-center justify-content-start">
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </thead>
 
-                            </table>
-                        </latte-tab>
+                                    <tbody>
+                                        <tr v-for="permissie in permissies" :key="permissie.id">
+                                            {{ permissie }}
+                                            <td style="width: auto;">
+                                                <div class="column-content">
+                                                    {{ permissie.display_name }}
+                                                </div>
+                                            </td>
+                                            <td style="width: auto;">
+                                                <div class="column-content">
+                                                    {{ permissie.name }}
+                                                </div>
+                                            </td>
+                                            <td style="width: auto;">
+                                                <div class="column-content">
+                                                    <label class="d-flex">
+                                                        <input type="checkbox" class="checkbox mr-3"  />
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
 
-                        <latte-tab class="panel-body" label="Rol verwijderen">
-                            <form v-on:submit="handleVerwijderen">
-                                <div class="notice notice-error">
-                                    <p>
-                                        Weet je zeker dat je deze rol wilt verwijderen? <br>
-                                        <strong>Dit is een permanente wijziging.</strong>
-                                    </p>
-                                </div>
-
-                                <div class="notice notice-info mb-3">
-                                    <p>Deze rol wordt verwijderd bij alle gebruikers die deze rol hebben. <br /> Hierdoor verliezen ze alle permissies die bij deze rol horen.</p>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="confirm">Voer hier de systeemnaam van de rol in (<span class="text-primary">{{ rol.name }}</span>) voor bevestiging om deze rol te verwijderen</label>
-                                    <input type="text" class="form-control" id="confirm" v-model="verwijderenConfirm" autocomplete="off">
-                                </div>
-
-                                <div class="row justify-content-between mt-4">
-                                    <button type="submit" class="btn btn-contained btn-danger ml-auto mr-3">
-                                        <span>Verwijderen</span>
-                                    </button>
-                                </div>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="3">
+                                                <div class="column-content">
+                                                    <button type="submit" class="btn btn-contained btn-success ml-auto mr-3">
+                                                        <span>Wijzigen</span>
+                                                    </button>
+                                                </div>
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
                             </form>
                         </latte-tab>
-                        
+
                         <div class="loading-overlay" v-if="this.laden">
                             <span class="spinner"></span>
                         </div>
@@ -167,31 +165,43 @@
                 fout: '',
                 id: this.$route.params.rol_id,
                 rol: {},
+                permissies: {},
                 verwijderenConfirm: '',
                 laden: true,
-                failed: false,
+                failed: true,
                 success: false
             };
         },
 
         methods: {
-            async getRol() {
-                if (!this.laden) {
-                    return;
-                }
-
+            async getData() {
                 try {
                     const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/rollen/' + this.id);
                     this.rol = res.data.rol;
-                    this.laden = false;
                 } catch (err) {
                     this.failed = true;
                     this.laden = false;
-                    Latte.ui.notification.create({
+
+                    await Latte.ui.notification.create({
                         title: 'Er is iets fout gegaan!',
                         message: 'Probeer het later opnieuw.'
                     });
                 }
+
+                try {
+                    const res = await axios.get(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/permissies');
+                    this.permissies = res.data.permissies;
+                } catch (err) {
+                    this.failed = true;
+                    this.laden = false;
+
+                    await Latte.ui.notification.create({
+                        title: 'Er is iets fout gegaan!',
+                        message: 'Probeer het later opnieuw.'
+                    });
+                }
+
+                this.laden = false;
             },
             async handleVerwijderen(e) {
                 e.preventDefault();
@@ -213,7 +223,7 @@
 
                     this.success = true;
 
-                    setTimeout( () => this.$router.push({ name: 'RBACRollenIndex' }), 2000);
+                    setTimeout(() => this.$router.push({name: 'RBACRollenIndex'}), 2000);
                 } catch (err) {
                     if (!err.response) {
                         await Latte.ui.notification.create({
@@ -230,7 +240,11 @@
         },
 
         created() {
-            this.getRol();
+            this.getData();
         }
     }
 </script>
+
+<style scoped>
+
+</style>
