@@ -122,6 +122,7 @@
             return {
                 fout: '',
                 laden: true,
+                failed: false,
                 rollen: []
             };
         },
