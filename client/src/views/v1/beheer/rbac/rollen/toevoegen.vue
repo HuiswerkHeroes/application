@@ -34,17 +34,17 @@
                             <form v-on:submit="handleSubmit">
                                 <div class="form-group">
                                     <label for="display_name">Weergavenaam</label>
-                                    <input type="text" class="form-control" id="display_name" name="display_name" required/>
+                                    <input type="text" class="form-control" id="display_name" v-model="weergavenaam" placeholder="Senior Director" required/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="name">Systeemnaam</label>
-                                    <input type="text" class="form-control" id="name" name="name" required/>
+                                    <input type="text" class="form-control" id="name" v-model="systeemnaam" placeholder="senior-director" required/>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description">Beschrijving</label>
-                                    <textarea class="form-control" name="description" id="description" cols="30" rows="5"></textarea>
+                                    <textarea class="form-control" id="description" v-model="beschrijving" cols="30" rows="5"></textarea>
                                 </div>
 
                                 <div class="form-group">
@@ -72,6 +72,20 @@
                                 <font-awesome-icon icon="times" />
                             </div>
                         </div>
+
+                        <div class="loading-overlay" v-if="this.success">
+                            <div class="d-block text-center m-3 text-error">
+                                <div class="success-checkmark">
+                                    <div class="check-icon">
+                                        <span class="icon-line line-tip"></span>
+                                        <span class="icon-line line-long"></span>
+                                        <div class="icon-circle"></div>
+                                        <div class="icon-fix"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -90,10 +104,14 @@
             return {
                 fout: '',
                 selected: [],
+                weergavenaam: '',
+                systeemnaam: '',
+                beschrijving: '',
                 permissies: [],
                 preload: true,
                 laden: false,
                 failed: false,
+                success: false
             };
         },
         methods: {
@@ -125,13 +143,16 @@
                 this.laden = true;
 
                 try {
-                    await axios.post(process.env.VUE_APP_APIURL + '/api/v1/gebruiker/setup/type', {
-                        typeId: this.typeId
+                    await axios.post(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/rollen', {
+                        weergavenaam: this.weergavenaam,
+                        systeemnaam: this.systeemnaam,
+                        beschrijving: this.beschrijving,
+                        permissies: this.selected
                     });
 
-                    if (this.typeId === 1) {
-                        await this.$router.push({name: 'RegistrerenSetupStudent2'});
-                    }
+                    this.success = true;
+
+                    setTimeout( () => this.$router.push({name: 'RBACRollenIndex'}), 2000);
                 } catch (err) {
                     if (!err.response) {
                         await Latte.ui.notification.create({
