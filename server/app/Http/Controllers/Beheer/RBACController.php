@@ -62,7 +62,7 @@ class RBACController extends Controller
         $rol->syncPermissions($request->get('permissies'));
 
         if ($rol) {
-            return response()->json(['status' => 'success', 'message' => 'De rol is toegevoegd.' ], 200);
+            return response()->json(['status' => 'success', 'message' => 'De rol is toegevoegd.', 'rol' => $rol ], 200);
         } else {
             return response()->json(['error'=> 'Er is een onbekende fout opgetreden.' ], 500);
         }
