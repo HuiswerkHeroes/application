@@ -143,7 +143,7 @@
                 this.laden = true;
 
                 try {
-                    await axios.post(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/rollen', {
+                    const res = await axios.post(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/rollen', {
                         weergavenaam: this.weergavenaam,
                         systeemnaam: this.systeemnaam,
                         beschrijving: this.beschrijving,
@@ -152,7 +152,7 @@
 
                     this.success = true;
 
-                    setTimeout( () => this.$router.push({name: 'RBACRollenIndex'}), 2000);
+                    setTimeout( () => this.$router.push({ name: 'RBACRollenView', params: { rol_id: res.data.rol.id } }), 2000);
                 } catch (err) {
                     if (!err.response) {
                         await Latte.ui.notification.create({
