@@ -68,13 +68,6 @@ class RBACController extends Controller
         }
     }
 
-    public function getPermissies()
-    {
-        return response()->json([
-            'permissies' => Permission::all(),
-        ], 200);
-    }
-
     public function deleteRol(Role $rol)
     {
         try {
@@ -83,5 +76,19 @@ class RBACController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error'=> 'Er is een onbekende fout opgetreden.' ], 500);
         }
+    }
+
+    public function getPermissies()
+    {
+        return response()->json([
+            'permissies' => Permission::all(),
+        ], 200);
+    }
+
+    public function getPermissie($id)
+    {
+        return response()->json([
+            'permissie' => Permission::where('id', $id)->with('roles')->firstOrfail(),
+        ], 200);
     }
 }

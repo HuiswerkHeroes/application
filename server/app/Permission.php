@@ -7,6 +7,7 @@ use Laratrust\Models\LaratrustPermission;
 /**
  * @method static create(string[] $array)
  * @method static whereIn(string $string, $get)
+ * @method static where(string $string, $id)
  */
 class Permission extends LaratrustPermission
 {
