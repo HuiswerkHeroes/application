@@ -23,6 +23,8 @@
 
             <div class="row">
                 <div class="col">
+                    <div v-if="this.fout" class="notice notice-error mb-3">{{ this.fout }}</div>
+
                     <latte-tab-container class="panel">
                         <div class="panel-header">
                             <span class="panel-title">Rol: {{ rol.display_name }} ({{ rol.name }})</span>
@@ -99,7 +101,7 @@
                         </latte-tab>
 
                         <latte-tab class="panel-body" label="Rol verwijderen">
-                            <form>
+                            <form v-on:submit="handleVerwijderen">
                                 <div class="notice notice-error">
                                     <p>
                                         Weet je zeker dat je deze rol wilt verwijderen? <br>
@@ -111,11 +113,9 @@
                                     <p>Deze rol wordt verwijderd bij alle gebruikers die deze rol hebben. <br /> Hierdoor verliezen ze alle permissies die bij deze rol horen.</p>
                                 </div>
 
-                                <nav class="nav nav-breadcrumb"><a class="nav-link">Some school</a><a class="nav-link">Learning</a><span class="nav-link is-active">Webdevelopment</span></nav>
-
                                 <div class="form-group">
-                                    <label for="confirm">Voer hier de systeemnaam van de rol in ({{rol.name}}) voor bevestiging om deze rol te verwijderen</label>
-                                    <input type="text" class="form-control" name="confirm" id="confirm">
+                                    <label for="confirm">Voer hier de systeemnaam van de rol in (<span class="text-primary">{{ rol.name }}</span>) voor bevestiging om deze rol te verwijderen</label>
+                                    <input type="text" class="form-control" id="confirm" v-model="verwijderenConfirm" autocomplete="off">
                                 </div>
 
                                 <div class="row justify-content-between mt-4">
@@ -133,6 +133,19 @@
                         <div class="loading-overlay" v-if="this.failed">
                             <div class="d-block text-center m-3 text-error fa-2x">
                                 <font-awesome-icon icon="times" />
+                            </div>
+                        </div>
+
+                        <div class="loading-overlay" v-if="this.success">
+                            <div class="d-block text-center m-3 text-error">
+                                <div class="success-checkmark">
+                                    <div class="check-icon">
+                                        <span class="icon-line line-tip"></span>
+                                        <span class="icon-line line-long"></span>
+                                        <div class="icon-circle"></div>
+                                        <div class="icon-fix"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </latte-tab-container>
@@ -154,8 +167,10 @@
                 fout: '',
                 id: this.$route.params.rol_id,
                 rol: {},
+                verwijderenConfirm: '',
                 laden: true,
                 failed: false,
+                success: false
             };
         },
 
@@ -178,6 +193,40 @@
                     });
                 }
             },
+            async handleVerwijderen(e) {
+                e.preventDefault();
+
+                if (this.laden) {
+                    return;
+                }
+
+                this.laden = true;
+
+                if (this.verwijderenConfirm !== this.rol.name) {
+                    this.fout = 'Verificatie klopt niet!'
+                    this.laden = false;
+                    return;
+                }
+
+                try {
+                    await axios.delete(process.env.VUE_APP_APIURL + '/api/v1/beheer/rbac/rollen/' + this.rol.id);
+
+                    this.success = true;
+
+                    setTimeout( () => this.$router.push({ name: 'RBACRollenIndex' }), 2000);
+                } catch (err) {
+                    if (!err.response) {
+                        await Latte.ui.notification.create({
+                            title: 'Er is iets fout gegaan!',
+                            message: 'Probeer het later opnieuw.'
+                        });
+                    } else {
+                        this.fout = err.response.data.error;
+                    }
+                }
+
+                this.laden = false;
+            }
         },
 
         created() {
