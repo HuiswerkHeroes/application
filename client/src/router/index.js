@@ -191,7 +191,7 @@ const routes = [
                                         name: 'RBACPermissiesBewerken',
                                         component: () =>
                                             import(
-                                                '../views/v1/beheer/rbac/rollen/bewerken.vue'
+                                                '../views/v1/beheer/rbac/permissies/bewerken.vue'
                                             ),
                                     },
                                 ],
