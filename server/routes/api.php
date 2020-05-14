@@ -39,6 +39,7 @@ Route::group(['prefix' => 'v1'], function () {
         Route::group(['prefix' => 'rbac'], function () {
             Route::group(['prefix' => 'rollen'], function () {
                 Route::get('', 'Beheer\RBACController@getRollen');
+                Route::post('', 'Beheer\RBACController@createRol');
                 Route::get('{id}', 'Beheer\RBACController@getRol');
             });
 
