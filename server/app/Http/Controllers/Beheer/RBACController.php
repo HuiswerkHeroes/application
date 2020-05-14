@@ -55,7 +55,8 @@ class RBACController extends Controller
 //        Maak Rol en sync alle permissies
         $rol = Role::create([
             'name' => $request->get('systeemnaam'),
-            'display_name' => $request->get('weergavenaam')
+            'display_name' => $request->get('weergavenaam'),
+            'description' => $request->get('beschrijving') ?? null
         ]);
 
         $rol->syncPermissions($request->get('permissies'));
