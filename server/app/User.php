@@ -56,4 +56,19 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Opleiding', 'id', 'opleiding_id');
     }
+
+    protected $appends = [
+        'allPermissions',
+    ];
+
+    public function getAllPermissionsAttribute()
+    {
+        $permissionList = [];
+
+        foreach ($this->allPermissions() as $permission) {
+            array_push($permissionList, $permission->name);
+        }
+
+        return $permissionList;
+    }
 }
