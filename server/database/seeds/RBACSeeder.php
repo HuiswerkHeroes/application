@@ -35,10 +35,15 @@ class RBACSeeder extends \Illuminate\Database\Seeder
             'display_name' => 'Beheer - RBAC',
         ]);
 
+        $debugInfo = Permission::create([
+            'name' => 'debug-info',
+            'display_name' => 'Debug - Informatie',
+        ]);
+
         /*
          * Link Permissies aan Rollen
          * */
-        $sbRol->attachPermission($beheerRbac);
+        $sbRol->syncPermissions([$beheerRbac, $debugInfo]);
 
         /*
          * Link Gebruiker aan Rol
