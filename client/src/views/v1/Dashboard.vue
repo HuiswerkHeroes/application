@@ -8,7 +8,7 @@
         <div>
             <div id="dashboardContainer" class="container pt-5">
                 <div class="row justify-content-around">
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3" v-if="getGebruiker.allPermissions.includes('beheer-gebruikers')">
                         <router-link class="text-decoration-none" :to="{ name: 'Gebruikers' }">
                             <div class="panel">
                                 <div class="panel-body dashboardPanel">
