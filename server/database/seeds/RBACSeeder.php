@@ -40,10 +40,15 @@ class RBACSeeder extends \Illuminate\Database\Seeder
             'display_name' => 'Debug - Informatie',
         ]);
 
+        $beheerGebruikers = Permission::create([
+            'name' => 'beheer-gebruikers',
+            'display_name' => 'Beheer - Gebruikers',
+        ]);
+
         /*
          * Link Permissies aan Rollen
          * */
-        $sbRol->syncPermissions([$beheerRbac, $debugInfo]);
+        $sbRol->syncPermissions([$beheerRbac, $debugInfo, $beheerGebruikers]);
 
         /*
          * Link Gebruiker aan Rol
