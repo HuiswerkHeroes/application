@@ -28,7 +28,7 @@
                         </router-link>
                     </div>
 
-                    <div class="col-md-4 mt-3">
+                    <div class="col-md-4 mt-3" v-if="getGebruiker.allPermissions.includes('beheer-rbac')">
                         <router-link class="text-decoration-none" :to="{ name: 'RBACDashboard' }">
                             <div class="panel">
                                 <div class="panel-body dashboardPanel">
@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="panel m-5" v-if="!getGebruiker.allPermissions.includes('debug-info')">
+        <div class="panel m-5" v-if="getGebruiker.allPermissions.includes('debug-info')">
             <div class="panel-header">
                 <span class="panel-title">Debug Information</span>
             </div>
