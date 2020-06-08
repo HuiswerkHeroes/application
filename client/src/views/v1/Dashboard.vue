@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div class="panel m-5">
+        <div class="panel m-5" v-if="!getGebruiker.allPermissions.includes('debug-info')">
             <div class="panel-header">
                 <span class="panel-title">Debug Information</span>
             </div>
