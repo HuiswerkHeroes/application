@@ -8,6 +8,26 @@
         <div>
             <div id="dashboardContainer" class="container pt-5">
                 <div class="row justify-content-around">
+                    <div class="col-md-4 mt-3">
+                        <router-link class="text-decoration-none" :to="{ name: 'Beschikbaarheid' }">
+                            <div class="panel">
+                                <div class="panel-body dashboardPanel">
+                                    <div class="text-center dashboardPanelContent">
+                                        <div class="mb-4">
+                                            <font-awesome-icon icon="calendar-check" class="dashboardIcon beschikbaarheidIcon" />
+                                        </div>
+                                        <div>
+                                            <h4 class="font-weight-bold">Beschikbaarheid</h4>
+                                            <p>
+                                                Geef hier je beschikbaarheid op, voor een perfecte match!
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </router-link>
+                    </div>
+
                     <div class="col-md-4 mt-3" v-if="getGebruiker.allPermissions.includes('beheer-gebruikers')">
                         <router-link class="text-decoration-none" :to="{ name: 'Gebruikers' }">
                             <div class="panel">

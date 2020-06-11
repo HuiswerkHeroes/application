@@ -75,6 +75,14 @@ const routes = [
                 component: () => import('../views/v1/Empty.vue'),
                 children: [
                     {
+                        path: 'beschikbaarheid',
+                        name: 'Beschikbaarheid',
+                        component: () =>
+                            import(
+                                /* webpackMode: "lazy" */ '../views/v1/gebruiker/Beschikbaarheid.vue'
+                            ),
+                    },
+                    {
                         path: 'instellingen',
                         component: () =>
                             import(
